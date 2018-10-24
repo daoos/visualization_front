@@ -1,0 +1,17 @@
+{
+  "coreApplication": {
+    "normalCount": 1,
+    "degradationCount": 0,
+    "exceptionCount": 2
+  },
+  "generalApplication": {
+    "normalCount": 10,
+    "degradationCount": 2,
+    "exceptionCount": 5
+  },
+  "importApplication": {
+    "normalCount": 20,
+    "degradationCount": 10,
+    "exceptionCount": 6
+  }
+}

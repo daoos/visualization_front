@@ -1,0 +1,20 @@
+{
+  "mysqlCapacity": [
+    {
+      "139.0.2.33-mysql": "3000",
+      "aliyuncompanyserver": "167.94"
+    }
+  ],
+  "sqlServerCapacity": [
+    {
+      "39.108.172.84": "88.06",
+      "sqlserver": "882.09"
+    }
+  ],
+  "oracleCapacity": [
+    {
+      "oracleAliyun": "100",
+      "oracle": "190.9"
+    }
+  ]
+}

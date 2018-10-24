@@ -1,0 +1,271 @@
+{
+  "deviceCount": 87,
+  "waringCount": 2,
+  "monitorCount": 87,
+  "cpuUsedRates": [
+    {
+      "createDate": "2018-04-12 14:58:01",
+      "resourceId": "426dcfbdd39944e48793ec622a61b2d1",
+      "usedRate": "16.62"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "c22d61882df9494e8b5d017ffc9aef18",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "94d1edd97bef40b29e500b6df92ab08f",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "66ad25c0562c4c9f9c4a43e01c69f1f8",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "5d75bd23bb9844db8f360fea15cef702",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "60d32250dabf4f1793422cb9086261c3",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "446994fa3bb94f6dbb12539a68aad04b",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "6c00473241ba4a0faf052a4e7455b1aa",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "c88a7025ec7b4331a4a3b7f6ea13af61",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "bc2915d846004ea3b79ae1361fd449b8",
+      "usedRate": "0.00"
+    }
+  ],
+  "memoryUsedRates": [
+    {
+      "createDate": "2018-04-12 14:58:02",
+      "resourceId": "426dcfbdd39944e48793ec622a61b2d1",
+      "usedRate": "55.54"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "c22d61882df9494e8b5d017ffc9aef18",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "94d1edd97bef40b29e500b6df92ab08f",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "66ad25c0562c4c9f9c4a43e01c69f1f8",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "5d75bd23bb9844db8f360fea15cef702",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "60d32250dabf4f1793422cb9086261c3",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "446994fa3bb94f6dbb12539a68aad04b",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "6c00473241ba4a0faf052a4e7455b1aa",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "c88a7025ec7b4331a4a3b7f6ea13af61",
+      "usedRate": "0.00"
+    },
+    {
+      "createDate": "2018-04-09 16:08:08",
+      "resourceId": "bc2915d846004ea3b79ae1361fd449b8",
+      "usedRate": "0.00"
+    }
+  ],
+  "disks": [
+    {
+      "id": null,
+      "createBy": null,
+      "createDate": null,
+      "updateBy": null,
+      "updateDate": null,
+      "remarks": null,
+      "delFlag": "0",
+      "name": "档案系统57",
+      "total": null,
+      "used": null,
+      "free": null,
+      "usedRate": "544.73",
+      "resourceId": "bf0d3e9344ea418f8e3f1492219256d2",
+      "sort": null
+    },
+    {
+      "id": null,
+      "createBy": null,
+      "createDate": null,
+      "updateBy": null,
+      "updateDate": null,
+      "remarks": null,
+      "delFlag": "0",
+      "name": "档案系统55",
+      "total": null,
+      "used": null,
+      "free": null,
+      "usedRate": "152.21",
+      "resourceId": "c688f05428094993bef9241e36d1806c",
+      "sort": null
+    },
+    {
+      "id": null,
+      "createBy": null,
+      "createDate": null,
+      "updateBy": null,
+      "updateDate": null,
+      "remarks": null,
+      "delFlag": "0",
+      "name": "安徽法院OA文件服务器",
+      "total": null,
+      "used": null,
+      "free": null,
+      "usedRate": "87.15",
+      "resourceId": "8c72b1815ec84656864c88360a3fd015",
+      "sort": null
+    },
+    {
+      "id": null,
+      "createBy": null,
+      "createDate": null,
+      "updateBy": null,
+      "updateDate": null,
+      "remarks": null,
+      "delFlag": "0",
+      "name": "档案系统 通达海",
+      "total": null,
+      "used": null,
+      "free": null,
+      "usedRate": "86.59",
+      "resourceId": "b55347f04ddd45d3b946f3d0e0e1e89f",
+      "sort": null
+    },
+    {
+      "id": null,
+      "createBy": null,
+      "createDate": null,
+      "updateBy": null,
+      "updateDate": null,
+      "remarks": null,
+      "delFlag": "0",
+      "name": "滨湖信息发布-含室外大屏",
+      "total": null,
+      "used": null,
+      "free": null,
+      "usedRate": "81.95",
+      "resourceId": "f0c55091bf674bea985bef308293afa3",
+      "sort": null
+    },
+    {
+      "id": null,
+      "createBy": null,
+      "createDate": null,
+      "updateBy": null,
+      "updateDate": null,
+      "remarks": null,
+      "delFlag": "0",
+      "name": "安徽法院审务云桌面门户系统-1",
+      "total": null,
+      "used": null,
+      "free": null,
+      "usedRate": "77.20",
+      "resourceId": "b8262b4d97cb475e91e78259d5f6a616",
+      "sort": null
+    },
+    {
+      "id": null,
+      "createBy": null,
+      "createDate": null,
+      "updateBy": null,
+      "updateDate": null,
+      "remarks": null,
+      "delFlag": "0",
+      "name": "智能辅助办案系统22",
+      "total": null,
+      "used": null,
+      "free": null,
+      "usedRate": "75.85",
+      "resourceId": "82cd65a9dbcb462089bb4f628d3729e7",
+      "sort": null
+    },
+    {
+      "id": null,
+      "createBy": null,
+      "createDate": null,
+      "updateBy": null,
+      "updateDate": null,
+      "remarks": null,
+      "delFlag": "0",
+      "name": "档案系统56",
+      "total": null,
+      "used": null,
+      "free": null,
+      "usedRate": "74.99",
+      "resourceId": "b89e00180330482dac3f3dd395f876be",
+      "sort": null
+    },
+    {
+      "id": null,
+      "createBy": null,
+      "createDate": null,
+      "updateBy": null,
+      "updateDate": null,
+      "remarks": null,
+      "delFlag": "0",
+      "name": "审判数据库11通达海",
+      "total": null,
+      "used": null,
+      "free": null,
+      "usedRate": "74.51",
+      "resourceId": "7b0d5a785068410caf784d31c9458470",
+      "sort": null
+    },
+    {
+      "id": null,
+      "createBy": null,
+      "createDate": null,
+      "updateBy": null,
+      "updateDate": null,
+      "remarks": null,
+      "delFlag": "0",
+      "name": "le",
+      "total": null,
+      "used": null,
+      "free": null,
+      "usedRate": "74.37",
+      "resourceId": "426dcfbdd39944e48793ec622a61b2d1",
+      "sort": null
+    }
+  ]
+}

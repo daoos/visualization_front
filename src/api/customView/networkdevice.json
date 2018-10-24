@@ -1,0 +1,349 @@
+{
+  "deviceCount": 60,
+  "waringCount": 5,
+  "monitorCount": 9,
+  "cpuUsedRates": [
+    {
+      "createDate": "2018-04-20 12:34:49",
+      "resourceId": "ac876bc050d849b09a4644222322320c",
+      "usedRate": "25.00"
+    },
+    {
+      "createDate": "2018-04-20 12:34:49",
+      "resourceId": "7fde874a227d45a1b9f86d9343adca44",
+      "usedRate": "44.00"
+    },
+    {
+      "createDate": "2018-04-20 12:34:49",
+      "resourceId": "2f568dd87b164eeabc9fe9ce5f5b1f57",
+      "usedRate": "66.00"
+    },
+    {
+      "createDate": "2018-04-20 12:34:49",
+      "resourceId": "25060de8a1f4432e9818810194ee2d60",
+      "usedRate": "99.00"
+    },
+    {
+      "createDate": "2018-04-20 12:34:49",
+      "resourceId": "48863547b2bb426d8d86b2d0ddcc7b56",
+      "usedRate": "1.00"
+    },
+    {
+      "createDate": "2018-04-20 12:34:49",
+      "resourceId": "acd6df86c1e94d6a930c5355b9e8d136",
+      "usedRate": "56.00"
+    },
+    {
+      "createDate": "2018-04-20 12:34:49",
+      "resourceId": "6da9dbfa7d04476fbcc82dc460178f82",
+      "usedRate": "89.00"
+    },
+    {
+      "createDate": "2018-04-20 12:34:49",
+      "resourceId": "572fd0cf4f494a7e8d350bb11e5143f0",
+      "usedRate": "22.00"
+    },
+    {
+      "createDate": "2018-04-20 12:34:49",
+      "resourceId": "d1da2a4f6d214a9c8d51adc70a5de299",
+      "usedRate": "89.00"
+    },
+    {
+      "createDate": "2018-04-20 12:34:49",
+      "resourceId": "273e29b0f917444bba0a7c4811110d04",
+      "usedRate": "23.00"
+    }
+  ],
+  "networkUsedRates": [
+    {
+      "inputRate": "0.0002",
+      "outputRate": "0.0001",
+      "name": "滨湖内网4层_3#_1"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0001",
+      "name": "五里墩办公楼-8LB"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0001",
+      "name": "滨湖内网3层_3#_1"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0001",
+      "name": "滨湖内网4层-3#-3"
+    },
+    {
+      "inputRate": "0.0002",
+      "outputRate": "0.0008",
+      "name": "滨湖内网5层-2"
+    },
+    {
+      "inputRate": "0.0005",
+      "outputRate": "0.0015",
+      "name": "内网核心-黄山"
+    },
+    {
+      "inputRate": "0.0013",
+      "outputRate": "0.0016",
+      "name": "滨湖核心交换机"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0001",
+      "name": "滨湖内网3层_1#_2"
+    },
+    {
+      "inputRate": "0.0003",
+      "outputRate": "0.0000",
+      "name": "滨湖内网2层_3#_2"
+    },
+    {
+      "inputRate": "0.0005",
+      "outputRate": "0.0012",
+      "name": "滨湖内网1层_1#_1"
+    },
+    {
+      "inputRate": "0.0002",
+      "outputRate": "0.0002",
+      "name": "3.104"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0003",
+      "name": "滨湖汇聚1"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0000",
+      "name": "滨湖内网3层_3#_2"
+    },
+    {
+      "inputRate": "0.0004",
+      "outputRate": "0.0004",
+      "name": "五里墩办公楼-14LA"
+    },
+    {
+      "inputRate": "0.0000",
+      "outputRate": "0.0000",
+      "name": "五里墩办公楼-11LA"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0000",
+      "name": "滨湖内网5层-1"
+    },
+    {
+      "inputRate": "0.0003",
+      "outputRate": "0.0004",
+      "name": "五里墩办公楼-2L核心交换"
+    },
+    {
+      "inputRate": "0.0002",
+      "outputRate": "0.0005",
+      "name": "内网核心-铜陵中院"
+    },
+    {
+      "inputRate": "0.0004",
+      "outputRate": "0.0005",
+      "name": "五里墩办公楼-2LB"
+    },
+    {
+      "inputRate": "0.0003",
+      "outputRate": "0.0007",
+      "name": "五里墩31段交换机"
+    },
+    {
+      "inputRate": "0.0002",
+      "outputRate": "0.0002",
+      "name": "五里墩审判楼-5L-B"
+    },
+    {
+      "inputRate": "0.0002",
+      "outputRate": "0.0001",
+      "name": "五里墩审判楼-3L-A"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0000",
+      "name": "滨湖内网2层_3#_1"
+    },
+    {
+      "inputRate": "0.0002",
+      "outputRate": "0.0002",
+      "name": "五里墩1段交换机250"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0001",
+      "name": "五里墩审判楼-5L-A"
+    },
+    {
+      "inputRate": "0.0000",
+      "outputRate": "0.0000",
+      "name": "五里墩审判楼-3L-B"
+    },
+    {
+      "inputRate": "0.0005",
+      "outputRate": "0.0012",
+      "name": "中心机房1网段252交换机"
+    },
+    {
+      "inputRate": "0.0002",
+      "outputRate": "0.0001",
+      "name": "滨湖内网-物业"
+    },
+    {
+      "inputRate": "0.0006",
+      "outputRate": "0.0009",
+      "name": "内网核心-安庆中院"
+    },
+    {
+      "inputRate": "0.0000",
+      "outputRate": "0.0000",
+      "name": "滨湖内网4层_3#_2"
+    },
+    {
+      "inputRate": "0.0006",
+      "outputRate": "0.0003",
+      "name": "滨湖-2层-2"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0000",
+      "name": "滨湖内网4层_1#_2"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0000",
+      "name": "滨湖内网4层_1#_1"
+    },
+    {
+      "inputRate": "0.0005",
+      "outputRate": "0.0010",
+      "name": "滨湖汇聚2"
+    },
+    {
+      "inputRate": "0.0015",
+      "outputRate": "0.0014",
+      "name": "滨湖内网3层_BEF"
+    },
+    {
+      "inputRate": "0.0002",
+      "outputRate": "0.0002",
+      "name": "五里墩办公楼-8LA"
+    },
+    {
+      "inputRate": "0.0010",
+      "outputRate": "0.0006",
+      "name": "五里墩办公楼-2LA"
+    },
+    {
+      "inputRate": "0.0001",
+      "outputRate": "0.0000",
+      "name": "滨湖-2层-1"
+    },
+    {
+      "inputRate": "0.0291",
+      "outputRate": "0.0294",
+      "name": "省高院核心路由NE40E-X16-1"
+    },
+    {
+      "inputRate": "0.0065",
+      "outputRate": "0.0065",
+      "name": "spzhl_nw_10wlzx_MSR3640"
+    },
+    {
+      "inputRate": "0.0078",
+      "outputRate": "0.0073",
+      "name": "至省高院路由器铜陵"
+    },
+    {
+      "inputRate": "0.0179",
+      "outputRate": "0.0052",
+      "name": "至省高院路由器阜阳"
+    },
+    {
+      "inputRate": "0.0132",
+      "outputRate": "0.0186",
+      "name": "至省高院路由器芜湖"
+    },
+    {
+      "inputRate": "0.0055",
+      "outputRate": "0.0053",
+      "name": "到最高法出口路由"
+    },
+    {
+      "inputRate": "0.0136",
+      "outputRate": "0.0132",
+      "name": "至省高院路由器亳州"
+    },
+    {
+      "inputRate": "0.0150",
+      "outputRate": "0.0173",
+      "name": "至省高院路由器蚌埠"
+    },
+    {
+      "inputRate": "0.0411",
+      "outputRate": "0.0098",
+      "name": "至省高院路由器淮南"
+    },
+    {
+      "inputRate": "0.0133",
+      "outputRate": "0.0130",
+      "name": "至省高院路由器宣城"
+    },
+    {
+      "inputRate": "0.0265",
+      "outputRate": "0.0265",
+      "name": "省高院核心路由NE40E-X16-2"
+    },
+    {
+      "inputRate": "0.0128",
+      "outputRate": "0.0069",
+      "name": "电信OSN设备"
+    },
+    {
+      "inputRate": "0.0126",
+      "outputRate": "0.0124",
+      "name": "至省高院路由器宿州"
+    },
+    {
+      "inputRate": "0.0120",
+      "outputRate": "0.0117",
+      "name": "至省高院路由器合肥"
+    },
+    {
+      "inputRate": "0.0187",
+      "outputRate": "0.0191",
+      "name": "至省高院路由器滁州"
+    },
+    {
+      "inputRate": "0.0082",
+      "outputRate": "0.0096",
+      "name": "至省高院路由器淮北"
+    },
+    {
+      "inputRate": "0.0302",
+      "outputRate": "0.0000",
+      "name": "滨湖路由器2联通"
+    },
+    {
+      "inputRate": "0.0771",
+      "outputRate": "0.0773",
+      "name": "滨湖路由器1电信"
+    },
+    {
+      "inputRate": "0.0066",
+      "outputRate": "0.0063",
+      "name": "至省高院路由器池州"
+    },
+    {
+      "inputRate": "0.0046",
+      "outputRate": "0.0059",
+      "name": "至省高院路由器安庆"
+    }
+  ]
+}

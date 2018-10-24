@@ -1,0 +1,102 @@
+{
+  "otherApp": {
+    "totalCount": 1,
+    "degradationCount": 0,
+    "exceptionCount": 0,
+    "normalApplication": [
+      {
+        "id": "c2ec02931fcf4c9ab54a1bca4d7b5fc7",
+        "resourceId": "d2a6d05c94ba4e2799e04fb9dda95bf2",
+        "createDate": 1524722571000,
+        "statusCode": 200,
+        "name": "testApp22",
+        "url": "www.sina.com",
+        "serverIp": "192.168.1.135"
+      }
+    ],
+    "degradationApplication": [],
+    "exceptionApplication": []
+  },
+  "peopleApp": {
+    "totalCount": 100,
+    "degradationCount": 22,
+    "exceptionCount": 16,
+    "normalApplication": [
+      {
+        "id": "c58bdc5f06c34dd39ff34ec690108cdc",
+        "resourceId": "cc1b978566224bbeaaf9a8accb48f82b",
+        "createDate": 1524722570000,
+        "statusCode": 200,
+        "name": "test3",
+        "url": "www.baidu.com",
+        "serverIp": "192.168.1.135"
+      }
+    ],
+    "degradationApplication": [],
+    "exceptionApplication": []
+  },
+  "executionApp": {
+    "totalCount": 256,
+    "degradationCount": 50,
+    "exceptionCount": 39,
+    "normalApplication": [
+      {
+        "id": "59170f6f5c0646b1a64ca802c63987b0",
+        "resourceId": "f175f9f1b49c4c3bab54b7085bc7bd55",
+        "createDate": 1524722571000,
+        "statusCode": 200,
+        "name": "testApp",
+        "url": "www.baidu.com",
+        "serverIp": "192.168.1.135"
+      }
+    ],
+    "degradationApplication": [],
+    "exceptionApplication": []
+  },
+  "managerApp": {
+    "totalCount": 215,
+    "degradationCount": 36,
+    "exceptionCount": 24,
+    "normalApplication": [
+      {
+        "id": "66e0c3f7d3d649fb90a1f857b0b66460",
+        "resourceId": "011f8725fab645f08d2c85fd1bb452ff",
+        "createDate": 1524722571000,
+        "statusCode": 200,
+        "name": "111",
+        "url": "www.baidu.com",
+        "serverIp": "192.168.1.135"
+      },
+      {
+        "id": "ba6e3992c8e54e8ba5cbb55246ca3d2c",
+        "resourceId": "0e2c2bddc42a43eda24fdb60aa11d804",
+        "createDate": 1524722570000,
+        "statusCode": 200,
+        "name": "test",
+        "url": "www.sina.com",
+        "serverIp": "192.168.1.135"
+      }
+    ],
+    "degradationApplication": [],
+    "exceptionApplication": [
+      {
+        "id": "6ba7c937772645bfbe77e32fc270b073",
+        "resourceId": "2c3149a04abb4c0a95fa5bc6110ac3ff",
+        "createDate": 1524722565000,
+        "statusCode": 500,
+        "name": "rer",
+        "url": "www.zzzzzzzzz.com",
+        "serverIp": "192.168.1.135"
+      },
+      {
+        "id": "6ba7c937772645bfbe77e32fc270b073",
+        "resourceId": "2c3149a04abb4c0a95fa5bc6110ac3ff",
+        "createDate": 1524722565000,
+        "statusCode": 500,
+        "name": "rer",
+        "url": "www.zzzzzzzzz.com",
+        "serverIp": "192.168.1.123"
+      }
+    ]
+  }
+}

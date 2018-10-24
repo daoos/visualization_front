@@ -1,0 +1,20 @@
+{
+  "baseDeviceSituation": {
+    "deviceCount": 186,
+    "waringCount": 7,
+    "monitorCount": 13,
+    "disconnectionCount": 173
+  },
+  "hostDeviceSituation": {
+    "deviceCount": 87,
+    "waringCount": 2,
+    "monitorCount": 1,
+    "disconnectionCount": 86
+  },
+  "appDeviceSituation": {
+    "deviceCount": 0,
+    "waringCount": 0,
+    "monitorCount": 0,
+    "disconnectionCount": 0
+  }
+}
