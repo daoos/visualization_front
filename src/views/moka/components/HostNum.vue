@@ -6,8 +6,8 @@
   import echarts from 'echarts'
 
   require('echarts/theme/macarons') // echarts theme
-  import {debounce} from '@/utils'
-
+  import { debounce } from '@/utils'
+  import { getMonitorProportion } from '@/api/moka'
   export default {
     props: {
       className: {
@@ -21,7 +21,7 @@
       height: {
         type: String,
         default: '100%'
-      },
+      }
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -38,7 +38,10 @@
     data() {
       return {
         chart: null,
-        option: []
+        option: [],
+        totalCountList: [],
+        monitorCountList: [],
+        alertCountList: []
       }
     },
     computed: {},
@@ -51,10 +54,16 @@
       //   this.getData()
       //   this.initChart()
       // }
+      totalCountList: function() {
+        this.initOption()
+        this.initChart(this.option)
+      }
     },
     mounted() {
-      this.initOption()
-      this.initChart(this.option)
+      this.getMonitorProportion()
+      setInterval(() => {
+        this.getMonitorProportion()
+      }, 5000)
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -71,14 +80,32 @@
       this.chart = null
     },
     methods: {
+      getMonitorProportion() {
+        getMonitorProportion().then(response => {
+          this.totalCountList = []
+          this.monitorCountList = []
+          this.alertCountList = []
+          var res = response.data
+          this.totalCountList.push(res.coreApp.totalCount)
+          this.totalCountList.push(res.importApp.totalCount)
+          this.totalCountList.push(res.generalApp.totalCount)
+          this.monitorCountList.push(res.coreApp.monitorCount)
+          this.monitorCountList.push(res.importApp.monitorCount)
+          this.monitorCountList.push(res.generalApp.monitorCount)
+          this.alertCountList.push(res.coreApp.alertCount)
+          this.alertCountList.push(res.importApp.alertCount)
+          this.alertCountList.push(res.generalApp.alertCount)
+          console.log(this.alertCountList)
+        })
+      },
       initOption() {
         var myData = ['核心应用', '重要应用', '一般应用']
-        var lineData = [180, 90, 120]
+        var lineData = this.totalCountList
         var lastYearData = {
-          1: [3, 20, 62]
+          1: this.monitorCountList
         }
         var thisYearData = {
-          1: [11, 38, 23]
+          1: this.alertCountList
         }
         var timeLineData = [1]
 
@@ -92,18 +119,18 @@
               top: 0,
               data: []
             },
-            legend : {
-              top : '5%',
-              left : '6%',
-              itemWidth : 12,
-              itemHeight : 12,
+            legend: {
+              top: '5%',
+              left: '6%',
+              itemWidth: 12,
+              itemHeight: 12,
               itemGap: 70,
-              icon : 'horizontal',
-              textStyle : {
-                color : '#ffffff',
-                fontSize : 12,
+              icon: 'horizontal',
+              textStyle: {
+                color: '#ffffff',
+                fontSize: 12
               },
-              data: ['已监控数占比','总数量', '告警数占比']
+              data: ['已监控数', '总数量', '告警数']
             },
             grid: [{
               show: false,
@@ -248,23 +275,23 @@
                 normal: {
                   show: true,
                   formatter: (series) => {
-                    return lastYearData[timeLineData[0]][series.dataIndex] + '%('+ lineData[series.dataIndex] + ')'
+                    return lastYearData[timeLineData[0]][series.dataIndex] + '(' + lineData[series.dataIndex] + ')'
                   },
                   position: 'insideTopLeft',
-                  textStyle:{
+                  textStyle: {
                     color: '#ffffff',
-                    fontSize: 16,
+                    fontSize: 16
                   },
-                  offset: [0, -35],
+                  offset: [0, -35]
                 }
               },
               z: -100,
               animationEasing: 'elasticOut',
-              animationDelay: function (dataIndex, params) {
-                return params.index * 30;
+              animationDelay: function(dataIndex, params) {
+                return params.index * 30
               }
             }, {
-              name: '已监控数占比',
+              name: '已监控数',
               type: 'pictorialBar',
               xAxisIndex: 0,
               yAxisIndex: 0,
@@ -280,8 +307,8 @@
               symbolSize: 14,
               data: lastYearData[timeLineData[0]],
               animationEasing: 'elasticOut',
-              animationDelay: function (dataIndex, params) {
-                return params.index * 30 * 1.1;
+              animationDelay: function(dataIndex, params) {
+                return params.index * 30 * 1.1
               }
             },
             {
@@ -305,23 +332,23 @@
                 normal: {
                   show: true,
                   formatter: (series) => {
-                    return thisYearData[timeLineData[0]][series.dataIndex] + '%('+ lineData[series.dataIndex] + ')'
+                    return thisYearData[timeLineData[0]][series.dataIndex] + '(' + lineData[series.dataIndex] + ')'
                   },
                   position: 'insideTopRight',
-                  textStyle:{
+                  textStyle: {
                     color: '#ffffff',
-                    fontSize: 16,
+                    fontSize: 16
                   },
-                  offset: [0, -35],
+                  offset: [0, -35]
                 }
               },
               z: -100,
               animationEasing: 'elasticOut',
-              animationDelay: function (dataIndex, params) {
-                return params.index * 30;
+              animationDelay: function(dataIndex, params) {
+                return params.index * 30
               }
             }, {
-              name: '告警数占比',
+              name: '告警数',
               type: 'pictorialBar',
               xAxisIndex: 2,
               yAxisIndex: 2,
@@ -337,8 +364,8 @@
               symbolSize: 14,
               data: thisYearData[timeLineData[0]],
               animationEasing: 'elasticOut',
-              animationDelay: function (dataIndex, params) {
-                return params.index * 30 * 1.1;
+              animationDelay: function(dataIndex, params) {
+                return params.index * 30 * 1.1
               }
             }
           ]

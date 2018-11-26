@@ -1,0 +1,36 @@
+{
+  "status":200,
+  "msg":"",
+  "data":{
+    "extranet":{
+      "complexScore":66,
+      "protectionScore":5,
+      "violation":80
+    },
+    "internet":{
+      "complexScore":66,
+      "protectionScore":5,
+      "violation":80
+    },
+    "datanet":{
+      "complexScore":66,
+      "protectionScore":5,
+      "violation":80
+    },
+    "videonet":{
+      "complexScore":66,
+      "protectionScore":5,
+      "violation":80
+    },
+    "secretnet":{
+      "complexScore":66,
+      "protectionScore":5,
+      "violation":80
+    },
+    "mobilenet":{
+      "complexScore":66,
+      "protectionScore":5,
+      "violation":80
+    }
+  }
+}

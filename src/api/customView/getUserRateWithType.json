@@ -1,0 +1,9 @@
+{
+  "status":200,
+  "msg":"",
+  "data":{
+    "storageUseRate":80,
+    "cpuUseRate":36,
+    "memoryUseRate":55
+  }
+}

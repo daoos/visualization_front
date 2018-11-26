@@ -1,0 +1,18 @@
+{
+  "status":200,
+  "msg":"",
+  "data":{
+    "judicialApp":{
+      "normalCount":50,
+      "exceptionCount":30
+    },
+    "trialApp":{
+      "normalCount":87,
+      "exceptionCount":38
+    },
+    "peopleApp":{
+      "normalCount":29,
+      "exceptionCount":20
+    }
+  }
+}

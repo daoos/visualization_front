@@ -6,7 +6,8 @@
   import echarts from 'echarts'
 
   require('echarts/theme/macarons') // echarts theme
-  import {debounce} from '@/utils'
+  import { debounce } from '@/utils'
+  import { getBaseDeviceStatistics } from '@/api/moka'
 
   export default {
     props: {
@@ -21,7 +22,7 @@
       height: {
         type: String,
         default: '100%'
-      },
+      }
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -38,6 +39,12 @@
     data() {
       return {
         chart: null,
+        totalCount: [],
+        malfunctionCount: [],
+        monitorCount: [],
+        total: 0,
+        malfunction: 0,
+        monitor: 0
 
       }
     },
@@ -51,9 +58,15 @@
       //   this.getData()
       //   this.initChart()
       // }
+      totalCount: function() {
+        this.initChart()
+      }
     },
     mounted() {
-      this.initChart()
+      this.getBaseDeviceStatistics()
+      setInterval(() => {
+        this.getBaseDeviceStatistics()
+      }, 5000)
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -70,12 +83,31 @@
       this.chart = null
     },
     methods: {
+      getBaseDeviceStatistics() {
+        this.totalCount = []
+        this.malfunctionCount = []
+        this.monitorCount = []
+        this.total = 0
+        this.malfunction = 0
+        this.monitor = 0
+        getBaseDeviceStatistics().then(response => {
+          var thisWeekData = response.data
+          for (var i in thisWeekData) {
+            this.total += thisWeekData[i].totalCount
+            this.malfunction += thisWeekData[i].malfunctionCount
+            this.monitor += thisWeekData[i].monitorCount
+            this.totalCount.push(thisWeekData[i].totalCount)
+            this.malfunctionCount.push(thisWeekData[i].malfunctionCount)
+            this.monitorCount.push(thisWeekData[i].monitorCount)
+          }
+        })
+      },
       initChart() {
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
           color: ['#ffd285', '#ff733f', '#ec4863'],
           tooltip: {
-            /*trigger: 'item',
+            /* trigger: 'item',
             formatter: "{a} <br/>{b} : {c}",
             formatter: function(params) {
                 return params.seriesType
@@ -86,26 +118,26 @@
             x: '2%',
             bottom: '2%',
             textStyle: {
-              color: '#ffd285',
+              color: '#ffd285'
             },
-            //data: ['郑州', '永城', '新乡']
+            // data: ['郑州', '永城', '新乡']
             data: [{
               name: '设备总量',
               icon: 'circle',
-              textStyle: {color: '#fff'},
-            },{
-                name: '故障数量',
-                icon: 'circle',
-                textStyle: {color: '#fff'},
-              },{
+              textStyle: { color: '#fff' }
+            }, {
+              name: '故障数量',
+              icon: 'circle',
+              textStyle: { color: '#fff' }
+            }, {
               name: '已监控数量',
               icon: 'circle',
-              textStyle: {color: '#fff'},
-            }],
+              textStyle: { color: '#fff' }
+            }]
             // backgroundColor:'#fff'
           },
           grid: {
-            //show:true,
+            // show:true,
             left: '0%',
             right: '45%',
             top: '3%',
@@ -113,28 +145,28 @@
             containLabel: true
           },
           toolbox: {
-            "show": false,
+            'show': false,
             feature: {
               saveAsImage: {}
             }
           },
           xAxis: {
-            //show:false,
+            // show:false,
             type: 'category',
             axisLine: {
-              //show:false,
+              // show:false,
               onZero: false,
               lineStyle: {
                 color: '#fff'
               }
             },
             axisTick: {
-              "show": true,
+              'show': true
               // length: 15,
             },
             axisLabel: {
-              //show:false,
-              //rotate:45,
+              // show:false,
+              // rotate:45,
               textStyle: {
                 color: '#fff'
               }
@@ -142,13 +174,13 @@
             splitArea: {
               show: true
             },
-            boundaryGap: true, //false时X轴从0开始
+            boundaryGap: true, // false时X轴从0开始
             data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
           },
           yAxis: {
-            //show:false,
-            "axisLine": {
-              //show:false,
+            // show:false,
+            'axisLine': {
+              // show:false,
               lineStyle: {
                 color: '#fff'
               }
@@ -159,11 +191,11 @@
                 color: '#fff'
               }
             },
-            "axisTick": {
+            'axisTick': {
               show: true
             },
             axisLabel: {
-              //show:false,
+              // show:false,
               textStyle: {
                 color: '#fff'
               }
@@ -192,11 +224,11 @@
               areaStyle: {
                 normal: {
                   color: 'rgba(50,190,242,0.3)'
-                },
+                }
               },
               symbolSize: 8,
-              //symbol: 'circle',
-              data: [100, 150, 190, 250, 320, 382, 388],
+              // symbol: 'circle',
+              data: this.totalCount,
               markPoint: {
                 label: {
                   normal: {
@@ -223,10 +255,10 @@
               symbolSize: 8,
               itemStyle: {
                 normal: {
-                  color: '#32aca9',
+                  color: '#32aca9'
                 }
               },
-              data: [70, 150, 150, 187, 190, 280, 270]
+              data: this.monitorCount
             },
             {
               name: '故障数量',
@@ -235,10 +267,10 @@
               symbolSize: 8,
               itemStyle: {
                 normal: {
-                  color: '#ff0200',
+                  color: '#ff0200'
                 }
               },
-              data: [20, 20, 20, 32, 15, 20, 90]
+              data: this.malfunctionCount
             },
             {
               type: 'pie',
@@ -247,7 +279,7 @@
               radius: ['30%', '32%'],
               tooltip: {
                 trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
               },
               label: {
                 normal: {
@@ -255,11 +287,11 @@
                 },
                 emphasis: {
                   show: true,
-                  color: '#ff6600',
+                  color: '#ff6600'
                 }
               },
               data: [{
-                value: 335,
+                value: this.total,
                 name: '已监控数量',
                 itemStyle: {
                   normal: {
@@ -268,11 +300,11 @@
                 },
                 tooltip: {
                   trigger: 'item',
-                  formatter: "{a} <br/>{b} : {c} ({d}%)"
+                  formatter: '{a} <br/>{b} : {c}'
                 },
                 label: {
                   normal: {
-                    formatter: '{d} %',
+                    formatter: '{d}',
                     textStyle: {
                       color: '#32aca9',
                       fontSize: 12
@@ -280,7 +312,7 @@
                   }
                 }
               }, {
-                value: 180,
+                value: this.monitor,
                 name: '占位',
                 tooltip: {
                   show: false
@@ -293,7 +325,7 @@
                 label: {
                   normal: {
                     textStyle: {
-                      color: '#ffd285',
+                      color: '#ffd285'
                     },
                     formatter: '\n已监控'
                   }
@@ -307,7 +339,7 @@
               radius: ['30%', '32%'],
               tooltip: {
                 trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                formatter: '{a} <br/>{b} : {c}'
               },
               label: {
                 normal: {
@@ -315,11 +347,11 @@
                 },
                 emphasis: {
                   show: true,
-                  color: '#ff6600',
+                  color: '#ff6600'
                 }
               },
               data: [{
-                value: 33,
+                value: this.malfunction,
                 name: '故障数量',
                 itemStyle: {
                   normal: {
@@ -328,11 +360,11 @@
                 },
                 tooltip: {
                   trigger: 'item',
-                  formatter: "{a} <br/>{b} : {c} ({d}%)"
+                  formatter: '{a} <br/>{b} : {c} ({d}%)'
                 },
                 label: {
                   normal: {
-                    formatter: '{d} %',
+                    formatter: '{d}',
                     textStyle: {
                       color: '#ff0200',
                       fontSize: 12
@@ -340,7 +372,7 @@
                   }
                 }
               }, {
-                value: 180,
+                value: this.total,
                 name: '占位',
                 tooltip: {
                   show: false
@@ -353,13 +385,13 @@
                 label: {
                   normal: {
                     textStyle: {
-                      color: '#ffd285',
+                      color: '#ffd285'
                     },
                     formatter: '\n故障量'
                   }
                 }
               }]
-            },
+            }
           ]
         })
       }

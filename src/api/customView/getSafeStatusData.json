@@ -1,0 +1,30 @@
+{
+  "status":200,
+  "msg":"",
+  "data":{
+    "max":120,
+    "min":66,
+    "rate":[
+      {
+        "time":"09:00",
+        "velocity":80
+      },
+      {
+        "time":"10:00",
+        "velocity":90
+      },
+      {
+        "time":"11:00",
+        "velocity":120
+      },
+      {
+        "time":"12:00",
+        "velocity":90
+      },
+      {
+        "time":"13:00",
+        "velocity":66
+      }
+    ]
+  }
+}

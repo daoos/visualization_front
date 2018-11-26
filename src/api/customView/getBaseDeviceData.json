@@ -1,0 +1,26 @@
+{
+  "status":200,
+  "msg":"",
+  "data":{
+    "baseDevice":[
+      {
+        "deviceName":"device1",
+        "proportion":25
+      },
+      {
+        "deviceName":"device2",
+        "proportion":80
+      }
+    ],
+    "appDevice":[
+      {
+        "deviceName":"device1",
+        "proportion":25
+      },
+      {
+        "deviceName":"device2",
+        "proportion":23
+      }
+    ]
+  }
+}

@@ -6,8 +6,8 @@
   import echarts from 'echarts'
 
   require('echarts/theme/macarons') // echarts theme
-  import {debounce} from '@/utils'
-
+  import { debounce } from '@/utils'
+  import { getSafeSituationData } from '@/api/moka'
   export default {
     props: {
       className: {
@@ -21,7 +21,7 @@
       height: {
         type: String,
         default: '100%'
-      },
+      }
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -38,6 +38,9 @@
     data() {
       return {
         chart: null,
+        complexScore: [],
+        protectionScore: [],
+        violation: []
 
       }
     },
@@ -51,9 +54,15 @@
       //   this.getData()
       //   this.initChart()
       // }
+      complexScore: function() {
+        this.initChart()
+      }
     },
     mounted() {
-      this.initChart()
+      this.getSafeSituationData()
+      setInterval(() => {
+        this.getSafeSituationData()
+      }, 5000)
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -70,18 +79,43 @@
       this.chart = null
     },
     methods: {
+      getSafeSituationData() {
+        this.complexScore = []
+        this.protectionScore = []
+        this.violation = []
+        getSafeSituationData().then(response => {
+          var res = response.data
+          this.complexScore.push(res.extranet.complexScore)
+          this.complexScore.push(res.internet.complexScore)
+          this.complexScore.push(res.datanet.complexScore)
+          this.complexScore.push(res.videonet.complexScore)
+          this.complexScore.push(res.secretnet.complexScore)
+          this.complexScore.push(res.mobilenet.complexScore)
+          this.protectionScore.push(res.extranet.protectionScore)
+          this.protectionScore.push(res.internet.protectionScore)
+          this.protectionScore.push(res.datanet.protectionScore)
+          this.protectionScore.push(res.videonet.protectionScore)
+          this.protectionScore.push(res.secretnet.protectionScore)
+          this.protectionScore.push(res.mobilenet.protectionScore)
+          this.violation.push(res.extranet.violation)
+          this.violation.push(res.internet.violation)
+          this.violation.push(res.datanet.violation)
+          this.violation.push(res.videonet.violation)
+          this.violation.push(res.secretnet.violation)
+          this.violation.push(res.mobilenet.violation)
+        })
+      },
       initChart() {
-
-        var scale = 1;
-        var singleData = [24, 70, 35,89,52,12];
-        var multipleData = [44, 44, 22, 12, 56, 89];
-        var judgeData = [11, 22, 15,45,75,36];
-        var color = "#189cbb";
+        var scale = 1
+        var singleData = this.complexScore
+        var multipleData = this.protectionScore
+        var judgeData = this.violation
+        var color = '#189cbb'
 
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
           tooltip: {
-            show:false,
+            show: false,
             trigger: 'axis',
             axisPointer: { // 坐标轴指示器，坐标轴触发有效
               type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
@@ -93,14 +127,14 @@
             itemGap: 50,
             // x: 'right',
             // top: '-10%',
-            right:'0',
+            right: '0',
             y: '0',
             icon: 'rect',
-            itemWidth: 15*scale, // 图例图形宽度
-            itemHeight: 15*scale, // 图例图形高度
+            itemWidth: 15 * scale, // 图例图形宽度
+            itemHeight: 15 * scale, // 图例图形高度
             textStyle: {
-              color: "#fff",
-              fontSize: 12*scale
+              color: '#fff',
+              fontSize: 12 * scale
             }
           },
           grid: {
@@ -112,25 +146,25 @@
           },
           xAxis: [{
             type: 'category',
-            data: ['外部专网', '互联网', '数据专网','视频专网', '涉密专网', '移动专网'],
+            data: ['外部专网', '互联网', '数据专网', '视频专网', '涉密专网', '移动专网'],
             axisLabel: {
               // inside: true,
               padding: [15, 0, 0, 0],
               textStyle: {
-                color: "#fff",
-                fontSize: 12*scale,
+                color: '#fff',
+                fontSize: 12 * scale
               }
             },
             axisTick: {
-              inside:true,
-              length:8*scale,
+              inside: true,
+              length: 8 * scale,
               lineStyle: {
-                color: color,
+                color: color
               }
             },
             axisLine: {
               lineStyle: {
-                color: color,
+                color: color
               }
             },
             splitLine: {
@@ -142,23 +176,23 @@
           }],
           yAxis: [{
             type: 'value',
-            max:100,
+            max: 100,
             axisLabel: {
               // inside: true,
               padding: [0, 15, 0, 0],
               textStyle: {
                 color: '#fff',
-                fontSize: 16*scale,
+                fontSize: 16 * scale
               }
             },
             axisTick: {
               lineStyle: {
-                color: color,
+                color: color
               }
             },
             axisLine: {
               lineStyle: {
-                color: color,
+                color: color
               }
             },
             splitLine: {
@@ -166,43 +200,43 @@
                 color: 'rgba(80,224,255,0.3)',
                 type: 'dashed'
               },
-              show:false,
+              show: false
             },
             name: '评分',
             nameTextStyle: {
-              color: "#fff",
-              fontSize: 16*scale,
+              color: '#fff',
+              fontSize: 16 * scale,
               padding: [0, 0, 10, 0]
             }
           }],
           series: [
             {
-            name: '综合安全评分',
-            type: 'bar',
-            stack:'综合安全评分',
-            barWidth: '15%',
-            barGap:'40%',
-            label: {
-              normal: {
-                show: true,
-                position: "top",
-                distance:20*scale,
-                formatter: function(params) {
-                  return params.data.value;
-                },
-                textStyle: {
-                  color: "#ffc72b",
-                  fontSize: 14*scale
+              name: '综合安全评分',
+              type: 'bar',
+              stack: '综合安全评分',
+              barWidth: '15%',
+              barGap: '40%',
+              label: {
+                normal: {
+                  show: true,
+                  position: 'top',
+                  distance: 20 * scale,
+                  formatter: function(params) {
+                    return params.data.value
+                  },
+                  textStyle: {
+                    color: '#ffc72b',
+                    fontSize: 14 * scale
+                  }
                 }
-              }
+              },
+              itemStyle: {
+                normal: {
+                  color: 'rgba(94,218,255,0.4)'
+                }
+              },
+              data: singleData
             },
-            itemStyle: {
-              normal: {
-                color:'rgba(94,218,255,0.4)',
-              }
-            },
-            data: singleData
-          },
             // {
             //   name: '综合安全评分',
             //   type: 'bar',
@@ -219,26 +253,26 @@
             {
               name: '防护完备性评分',
               type: 'bar',
-              stack:'防护完备性评分',
+              stack: '防护完备性评分',
               barWidth: '15%',
-              barGap:'40%',
+              barGap: '40%',
               label: {
                 normal: {
                   show: true,
-                  position: "top",
-                  distance:20*scale,
+                  position: 'top',
+                  distance: 20 * scale,
                   formatter: function(params) {
-                    return params.data.value;
+                    return params.data.value
                   },
                   textStyle: {
-                    color: "#ffc72b",
-                    fontSize: 14*scale
+                    color: '#ffc72b',
+                    fontSize: 14 * scale
                   }
                 }
               },
               itemStyle: {
                 normal: {
-                  color: 'rgba(20,124,146,0.4)',
+                  color: 'rgba(20,124,146,0.4)'
                 }
               },
               data: multipleData
@@ -259,30 +293,30 @@
             {
               name: '数据交规违规事件数',
               type: 'bar',
-              stack:'数据交规违规事件数',
+              stack: '数据交规违规事件数',
               barWidth: '15%',
-              barGap:'40%',
+              barGap: '40%',
               label: {
                 normal: {
                   show: true,
-                  position: "top",
-                  distance:20*scale,
+                  position: 'top',
+                  distance: 20 * scale,
                   formatter: function(params) {
-                    return params.data.value;
+                    return params.data.value
                   },
                   textStyle: {
-                    color: "#ffc72b",
-                    fontSize: 14*scale
+                    color: '#ffc72b',
+                    fontSize: 14 * scale
                   }
                 }
               },
               itemStyle: {
                 normal: {
-                  color: 'rgba(9,149,124,0.4)',
+                  color: 'rgba(9,149,124,0.4)'
                 }
               },
               data: judgeData
-            },
+            }
             // {
             //   name: '数据交规违规事件数',
             //   type: 'bar',

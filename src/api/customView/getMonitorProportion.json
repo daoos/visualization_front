@@ -1,0 +1,21 @@
+{
+  "status":200,
+  "msg":"",
+  "data":{
+    "coreApp":{
+      "totalCount":180,
+      "monitorCount":45,
+      "alertCount":30
+    },
+    "importApp":{
+      "totalCount":180,
+      "monitorCount":45,
+      "alertCount":30
+    },
+    "generalApp":{
+      "totalCount":180,
+      "monitorCount":45,
+      "alertCount":30
+    }
+  }
+}

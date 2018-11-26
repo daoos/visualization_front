@@ -1,0 +1,14 @@
+{
+  "status":200,
+  "msg":"",
+  "data":{
+    "webPlatform":{
+      "total":124,
+      "ratio":20
+    },
+    "operationPlatform":{
+      "total":1584,
+      "ratio":60
+    }
+  }
+}

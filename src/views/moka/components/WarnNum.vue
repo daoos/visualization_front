@@ -6,8 +6,8 @@
   import echarts from 'echarts'
 
   require('echarts/theme/macarons') // echarts theme
-  import {debounce} from '@/utils'
-
+  import { debounce } from '@/utils'
+  import { listAlertWithDeviceType } from '@/api/moka'
   export default {
     props: {
       className: {
@@ -22,6 +22,9 @@
         type: String,
         default: '100%'
       },
+      type: {
+        type: Number
+      }
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -38,21 +41,29 @@
     data() {
       return {
         chart: null,
-        dataList:[],
+        dataList: []
       }
     },
     computed: {},
     watch: {
-      // ovData: function() {
-      //   this.getData()
-      //   this.initChart()
-      // },
+      dataList: function() {
+        this.initChart()
+      },
+      type: function() {
+        this.dataList = []
+        this.listAlertWithDeviceType()
+        this.initChart()
+      }
       // deviceName: function() {
       //   this.getData()
       //   this.initChart()
       // }
     },
     mounted() {
+      this.listAlertWithDeviceType()
+      setInterval(() => {
+        this.listAlertWithDeviceType()
+      }, 5000)
       this.initChart()
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
@@ -70,16 +81,31 @@
       this.chart = null
     },
     methods: {
+
+      listAlertWithDeviceType() {
+        this.dataList = []
+        listAlertWithDeviceType(this.type).then(response => {
+          var res = response.data
+          for (var k in res) {
+            var item = []
+            item.push(res[k].month + '月', res[k].alertCount)
+            this.dataList.push(item)
+          }
+        })
+      },
+
       initChart() {
         this.chart = echarts.init(this.$el, 'macarons')
 
-        var data = [["1月", 116], ["2月", 129], ["3月", 135], ["4月", 86], ["5月", 73], ["6月", 85], ["7月", 73], ["8月", 68], ["9月", 92], ["10月", 130], ["11月", 245], ["12月", 139]];
-        var dateList = data.map(function (item) {
-          return item[0];
-        });
-        var valueList = data.map(function (item) {
-          return item[1];
-        });
+        var data = this.dataList
+        // console.log(data)
+        var dateList = data.map(function(item) {
+          // console.log(item[0])
+          return item[0]
+        })
+        var valueList = data.map(function(item) {
+          return item[1]
+        })
 
         this.chart.setOption({
           // Make gradient line here
@@ -97,13 +123,13 @@
             data: dateList
           }],
           yAxis: [{
-            splitLine: {show: false},
-            axisLabel:{
-              textStyle:{
-                color:'#FFF',
-                fontSize:12
+            splitLine: { show: false },
+            axisLabel: {
+              textStyle: {
+                color: '#FFF',
+                fontSize: 12
               }
-            },
+            }
           }],
           grid: [{
             top: '3%',
@@ -112,11 +138,11 @@
           }],
           series: [{
             type: 'line',
-            areaStyle: {normal: {}},
+            areaStyle: { normal: {}},
             data: valueList
           }]
         })
-      },
+      }
 
     }
   }

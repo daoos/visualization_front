@@ -6,7 +6,7 @@
   import echarts from 'echarts'
 
   require('echarts/theme/macarons') // echarts theme
-  import {debounce} from '@/utils'
+  import { debounce } from '@/utils'
 
   export default {
     props: {
@@ -22,6 +22,9 @@
         type: String,
         default: '100%'
       },
+      device: {
+        type: Array
+      }
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -37,23 +40,17 @@
     },
     data() {
       return {
-        chart: null,
+        chart: null
 
       }
     },
     computed: {},
     watch: {
-      // ovData: function() {
-      //   this.getData()
-      //   this.initChart()
-      // },
-      // deviceName: function() {
-      //   this.getData()
-      //   this.initChart()
-      // }
+      device: function() {
+        this.initChart()
+      }
     },
     mounted() {
-      this.initChart()
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -73,18 +70,31 @@
       initChart() {
         this.chart = echarts.init(this.$el, 'macarons')
 
-        var data = [];
-        var labelData = [];
-        for (var i = 0; i < 5; ++i) {
-          data.push({
-            value: Math.random() * 10 + 10 - Math.abs(i - 12),
-            name: i + ':00'
-          });
+        var data = []
+        var labelData = []
+
+        var deviceObj = this.device
+        for (var index in deviceObj) {
           labelData.push({
-            value: 1,
-            name: '设备'+(i+1)
-          });
+            value: deviceObj[index].proportion,
+            name: deviceObj[index].deviceName
+          })
+          data.push({
+            value: deviceObj[index].proportion,
+            name: deviceObj[index].deviceName
+
+          })
         }
+        // for (var i = 0; i < 5; ++i) {
+        //   data.push({
+        //     value: Math.random() * 10 + 10 - Math.abs(i - 12),
+        //     name: i + ':00'
+        //   })
+        //   labelData.push({
+        //     value: 1,
+        //     name: '设备' + (i + 1)
+        //   })
+        // }
 
         this.chart.setOption({
 
@@ -94,6 +104,18 @@
           // },
           series: [{
             type: 'pie',
+            label: { // 饼图图形上的文本标签
+              normal: {
+                show: true,
+                position: 'inner', // 标签的位置
+                textStyle: {
+                  fontSize: 12, // 文字的字体大小
+                  color: '#fff'
+                },
+                formatter: '{d}'
+
+              }
+            },
             data: data,
             roseType: 'area',
             itemStyle: {
@@ -103,11 +125,6 @@
               }
             },
             labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            label: {
               normal: {
                 show: false
               }

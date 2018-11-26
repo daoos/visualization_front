@@ -6,7 +6,8 @@
   import echarts from 'echarts'
 
   require('echarts/theme/macarons') // echarts theme
-  import {debounce} from '@/utils'
+  import { debounce } from '@/utils'
+  import { getDataSituation } from '@/api/moka'
 
   export default {
     props: {
@@ -21,7 +22,7 @@
       height: {
         type: String,
         default: '100%'
-      },
+      }
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -38,6 +39,8 @@
     data() {
       return {
         chart: null,
+        lastMonth: [],
+        thisMonth: []
 
       }
     },
@@ -51,9 +54,15 @@
       //   this.getData()
       //   this.initChart()
       // }
+      lastMonth: function() {
+        this.initChart()
+      }
     },
     mounted() {
-      this.initChart()
+      this.getDataSituation()
+      setInterval(() => {
+        this.getDataSituation()
+      }, 5000)
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -70,20 +79,35 @@
       this.chart = null
     },
     methods: {
-      initChart() {
+      getDataSituation() {
+        this.thisMonth = []
+        this.lastMonth = []
+        getDataSituation().then(response => {
+          var res = response.data
+          console.log(res)
+          this.thisMonth.push(res.attack.thisMonth)
+          this.thisMonth.push(res.leak.thisMonth)
+          this.thisMonth.push(res.virus.thisMonth)
+          this.thisMonth.push(res.violation.thisMonth)
+          this.lastMonth.push(res.attack.lastMonth)
+          this.lastMonth.push(res.leak.lastMonth)
+          this.lastMonth.push(res.virus.lastMonth)
+          this.lastMonth.push(res.violation.lastMonth)
+        })
+      },
+      initChart: function() {
         this.chart = echarts.init(this.$el, 'macarons')
 
-        var data1=[160, 182, 131, 134, 150, 120, 180];
-        var data2=[120, 130, 125, 145, 172, 165, 122];
-        var axisData=['指标一','指标二','指标三','指标四','指标五','指标六','指标七'];
+        var data1 = this.lastMonth
+        var data2 = this.thisMonth
+        var axisData = ['攻击数', '漏洞数', '病毒数', '违规数']
 
-        var barData1=[];
-        var barData2=[];
-        for(var i=0;i<axisData.length;i++){
-          barData1.push(Math.min(data1[i],data2[i]));
-          barData2.push(Math.abs(data1[i]-data2[i]));
+        var barData1 = []
+        var barData2 = []
+        for (var i = 0; i < axisData.length; i++) {
+          barData1.push(Math.min(data1[i], data2[i]))
+          barData2.push(Math.abs(data1[i] - data2[i]))
         }
-
 
         this.chart.setOption({
           tooltip: {
@@ -93,14 +117,14 @@
                 color: 'cyan'
               }
             },
-            formatter:function(params){
-              console.log(params);
-              var tooltipStr=
-                '<p>上月: '+data1[params[0].dataIndex]+' </p>'+
-                '<p>本月 : '+data2[params[0].dataIndex]+' </p>'+
-                '<p>差值 : '+barData2[params[0].dataIndex]+' </p>';
+            formatter: function(params) {
+              console.log(params)
+              var tooltipStr =
+                '<p>上月: ' + data1[params[0].dataIndex] + ' </p>' +
+                '<p>本月 : ' + data2[params[0].dataIndex] + ' </p>' +
+                '<p>差值 : ' + barData2[params[0].dataIndex] + ' </p>'
 
-              return tooltipStr;
+              return tooltipStr
             }
           },
           legend: {
@@ -108,7 +132,7 @@
             itemWidth: 14,
             itemHeight: 5,
             itemGap: 13,
-            data: ['本月', '上月',],
+            data: ['本月', '上月'],
             right: '4%',
             top: '0%',
             textStyle: {
@@ -129,9 +153,9 @@
             axisLine: {
               show: true
             },
-            axisLabel:{
-              textStyle:{
-                color:'#fff'
+            axisLabel: {
+              textStyle: {
+                color: '#fff'
               }
             },
             data: axisData
@@ -143,12 +167,12 @@
               show: true
             },
             axisLine: {
-             show: true
+              show: true
             },
             axisLabel: {
               textStyle: {
-                color:'#fff',
-                fontSize: 12,
+                color: '#fff',
+                fontSize: 12
               }
             },
             splitLine: {
@@ -206,42 +230,42 @@
 
             // bar图
             {
-              type:'bar',
-              stack:'test',
+              type: 'bar',
+              stack: 'test',
               // barWidth:'10%',
-              itemStyle:{
-                normal:{
-                  color:'rgba(0,0,0,0)'
+              itemStyle: {
+                normal: {
+                  color: 'rgba(0,0,0,0)'
                 }
               },
-              data:barData1,
-              tooltip:{
-                show:false
+              data: barData1,
+              tooltip: {
+                show: false
               }
 
             },
             {
-              type:'bar',
-              stack:'test',
-              barWidth:4,
-              itemStyle:{
-                normal:{
-                  color:function(params){
+              type: 'bar',
+              stack: 'test',
+              barWidth: 4,
+              itemStyle: {
+                normal: {
+                  color: function(params) {
                     // console.log(params);
-                    if(data1[params.dataIndex]>data2[params.dataIndex]){
-                      return '#32bef2';
-                    }else if(data1[params.dataIndex]<data2[params.dataIndex]){
-                      return '#ff0200';
-                    }else{
-                      return 'rgba(0,0,0,0)';
+                    if (data1[params.dataIndex] > data2[params.dataIndex]) {
+                      return '#32bef2'
+                    } else if (data1[params.dataIndex] < data2[params.dataIndex]) {
+                      return '#ff0200'
+                    } else {
+                      return 'rgba(0,0,0,0)'
                     }
                   },
-                  barBorderRadius:2
+                  barBorderRadius: 2
                 }
               },
-              data:barData2,
-              tooltip:{
-                show:false
+              data: barData2,
+              tooltip: {
+                show: false
               }
 
             }

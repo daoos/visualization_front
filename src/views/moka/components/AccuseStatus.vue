@@ -6,7 +6,7 @@
   import echarts from 'echarts'
 
   require('echarts/theme/macarons') // echarts theme
-  import {debounce} from '@/utils'
+  import { debounce } from '@/utils'
 
   export default {
     props: {
@@ -22,6 +22,9 @@
         type: String,
         default: '100%'
       },
+      object: {
+        type: Object
+      }
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -37,7 +40,7 @@
     },
     data() {
       return {
-        chart: null,
+        chart: null
 
       }
     },
@@ -51,9 +54,12 @@
       //   this.getData()
       //   this.initChart()
       // }
+      object: function() {
+        console.log(this.object)
+        this.initChart()
+      }
     },
     mounted() {
-      this.initChart()
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -72,11 +78,11 @@
     methods: {
       initChart() {
         this.chart = echarts.init(this.$el, 'macarons')
-        var myColor=['#0096f3','#ff0200']
+        var myColor = ['#0096f3', '#ff0200']
         this.chart.setOption({
           grid: {
             left: '-5%',
-            top:'30%',
+            top: '30%',
             right: '0%',
             bottom: '0%',
             containLabel: true
@@ -91,67 +97,67 @@
               textAlign: 'center',
               fontSize: 14,
               fontWeight: 'bold',
-              fontFamily:'Microsoft YaHei'
-            },
+              fontFamily: 'Microsoft YaHei'
+            }
           },
           xAxis: [{
-            show: false,
+            show: false
           }],
           yAxis:
             [{
-              axisTick:'none',
-              axisLine:'none',
-              offset:'27',
+              axisTick: 'none',
+              axisLine: 'none',
+              offset: '27',
               axisLabel: {
                 textStyle: {
                   color: '#ffffff',
-                  fontSize:'16',
+                  fontSize: '16'
                 }
               },
               data: []
             }, {
-              axisTick:'none',
-              axisLine:'none',
+              axisTick: 'none',
+              axisLine: 'none',
               axisLabel: {
                 textStyle: {
                   color: '#ffffff',
-                  fontSize:'16',
+                  fontSize: '16'
                 }
               },
-              data: ['12567']
-            },{
+              data: [this.object.total]
+            }, {
 
-              axisLine:{
-                lineStyle:{
-                  color:'rgba(0,0,0,0)'
+              axisLine: {
+                lineStyle: {
+                  color: 'rgba(0,0,0,0)'
                 }
               },
-              data: [],
+              data: []
             }],
           series: [{
             name: '条',
             type: 'bar',
-            stack:'圆',
+            stack: '圆',
             yAxisIndex: 0,
-            data: [30],
-            label:{
-              normal:{
-                show:true,
-                position:'right',
-                distance:10,
-                formatter:function(param){
-                  return param.value + '%';
+            data: [this.object.ratio],
+            label: {
+              normal: {
+                show: true,
+                position: 'right',
+                distance: 10,
+                formatter: function(param) {
+                  return param.value + '%'
                 },
-                textStyle:{
+                textStyle: {
                   color: '#ffffff',
-                  fontSize:'16',
+                  fontSize: '16'
                 }
               }
             },
             barWidth: 10,
             itemStyle: {
               normal: {
-                color: myColor[1],
+                color: myColor[1]
                 //   function(params) {
                 //   var num=myColor.length;
                 //   return myColor[params.dataIndex%num]
@@ -159,23 +165,23 @@
               }
             },
             z: 2
-          },{
+          }, {
             name: '内圆',
             type: 'scatter',
-            stack:'圆',
+            stack: '圆',
             yAxisIndex: 0,
             data: [0],
-            label:{
-              normal:{
-                show:false,
-                position:'right',
-                formatter:function(param){
-                  return param.value + '%';
+            label: {
+              normal: {
+                show: false,
+                position: 'right',
+                formatter: function(param) {
+                  return param.value + '%'
                 },
 
-                textStyle:{
+                textStyle: {
                   color: '#ffffff',
-                  fontSize:'16',
+                  fontSize: '16'
                 }
               }
             },
@@ -185,13 +191,13 @@
             itemStyle: {
               normal: {
                 borderColor: '#fff',
-                borderWidth:3 ,
+                borderWidth: 3,
                 color: myColor[1],
                 //   function(params) {
                 //   var num=myColor.length;
                 //   return myColor[params.dataIndex%num]
                 // },
-                opacity: 1,
+                opacity: 1
               }
             },
             z: 2
@@ -205,7 +211,7 @@
             itemStyle: {
               normal: {
                 color: '#0e2147',
-                barBorderRadius: 5,
+                barBorderRadius: 5
               }
             },
             z: 1
@@ -218,35 +224,35 @@
             barWidth: 24,
             itemStyle: {
               normal: {
-                color:myColor[0],
+                color: myColor[0],
                 //   function(params) {
                 //   var num=myColor.length;
                 //   return myColor[params.dataIndex%num]
                 // },
-                barBorderRadius: 5,
+                barBorderRadius: 5
               }
             },
             z: 0
           },
-            {
-              name: '外圆',
-              type: 'scatter',
-              hoverAnimation: false,
-              data: [0],
-              yAxisIndex: 2,
-              symbolSize: 30,
-              itemStyle: {
-                normal: {
-                  color: myColor[1],
-                  //   function(params) {
-                  //   var num=myColor.length;
-                  //   return myColor[params.dataIndex%num]
-                  // },
-                  opacity: 1,
-                }
-              },
-              z: 2
-            }]
+          {
+            name: '外圆',
+            type: 'scatter',
+            hoverAnimation: false,
+            data: [0],
+            yAxisIndex: 2,
+            symbolSize: 30,
+            itemStyle: {
+              normal: {
+                color: myColor[1],
+                //   function(params) {
+                //   var num=myColor.length;
+                //   return myColor[params.dataIndex%num]
+                // },
+                opacity: 1
+              }
+            },
+            z: 2
+          }]
         })
       }
     }

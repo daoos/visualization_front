@@ -24,7 +24,7 @@
               <label>基础设施状态</label>
             </div>
             <div class="base-app-eff">
-              <status-water></status-water>
+              <status-water :device="baseDevice"></status-water>
             </div>
             <!---->
           </div>
@@ -34,7 +34,7 @@
               <label>应用状态</label>
             </div>
             <div class="base-app-eff" style="left: 6%">
-              <status-water></status-water>
+              <status-water :device="appDevice"></status-water>
             </div>
           </div>
           <div class="app-eff-status-view eff-status2">
@@ -53,7 +53,8 @@
                 <label>时间</label>
               </div>
               <div class="eff-status-source">
-                <label>2018-6-10 18:30</label>
+                <!--<label>2018-6-10 18:30</label>-->
+                <label>{{ currentTime}}</label>
               </div>
             </div>
           </div>
@@ -73,24 +74,24 @@
         <div class="operation-manage-view accuse-view">
           <div class="common-title" style="width: 200px;">
             <img src="../../assets/moka/title.png" style="width: 70%;"/>
-            <label>各应用系统投诉情况</label>
+            <label>各项应用问题申报情况</label>
           </div>
           <div class="accuse-status">
             <div class="tip-title">
               <div class="tip-img"></div>
-              <label>网上申诉平台</label>
+              <label>网上申报平台</label>
             </div>
             <div class="accuse-status-view">
-              <accuse-status></accuse-status>
+              <accuse-status :object="webPlatform"></accuse-status>
             </div>
           </div>
           <div class="accuse-status">
             <div class="tip-title">
               <div class="tip-img"></div>
-              <label>办公平台</label>
+              <label>运维工单</label>
             </div>
             <div class="accuse-status-view">
-              <accuse-status></accuse-status>
+              <accuse-status :object="operationPlatform"></accuse-status>
             </div>
           </div>
         </div>
@@ -141,7 +142,7 @@
             <label>安全设备状态</label>
           </div>
           <div class="data_status_view">
-            <equip-status></equip-status>
+            <equip-status :xTime="xTime" :yValue="yValue" :min="min" :max="max"></equip-status>
           </div>
         </div>
         <div class="safe-event">
@@ -179,7 +180,7 @@
                 <label>告警数</label>
               </div>
               <div class="warn-num-view">
-                <warn-num></warn-num>
+                <warn-num :type="type"></warn-num>
               </div>
             </div>
             <div class="host-use-rate">
@@ -219,7 +220,7 @@
                 <img src="../../assets/moka/title.png"/>
                 <label>存储设备总数及纳入监控数</label>
               </div>
-              <equip-num></equip-num>
+              <equip-num :monitorNum="monitorNum"></equip-num>
             </div>
             <div class="warn-num">
               <div class="common-title">
@@ -227,7 +228,7 @@
                 <label>告警数</label>
               </div>
               <div class="warn-num-view">
-                <warn-num></warn-num>
+                <warn-num :type="type"></warn-num>
               </div>
             </div>
             <div class="use-ratio first-ratio">
@@ -236,7 +237,7 @@
                 <label>磁盘利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="storageUseRate" ></use-rate>
               </div>
             </div>
             <div class="use-ratio">
@@ -245,7 +246,7 @@
                 <label>CPU利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="cpuUseRate"></use-rate>
               </div>
             </div>
             <div class="use-ratio">
@@ -254,7 +255,7 @@
                 <label>内存利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="memoryUseRate"></use-rate>
               </div>
             </div>
           </div>
@@ -264,7 +265,7 @@
                 <img src="../../assets/moka/title.png"/>
                 <label>网络设备总数及纳入监控数</label>
               </div>
-              <equip-num></equip-num>
+              <equip-num :monitorNum="monitorNum"></equip-num>
             </div>
             <div class="warn-num">
               <div class="common-title">
@@ -272,7 +273,7 @@
                 <label>告警数</label>
               </div>
               <div class="warn-num-view">
-                <warn-num></warn-num>
+                <warn-num :type="type"></warn-num>
               </div>
             </div>
             <div class="use-ratio first-ratio">
@@ -281,7 +282,7 @@
                 <label>磁盘利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="storageUseRate"></use-rate>
               </div>
             </div>
             <div class="use-ratio">
@@ -290,7 +291,7 @@
                 <label>CPU利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="cpuUseRate"></use-rate>
               </div>
             </div>
             <div class="use-ratio">
@@ -299,7 +300,7 @@
                 <label>内存利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="memoryUseRate"></use-rate>
               </div>
             </div>
           </div>
@@ -309,7 +310,7 @@
                 <img src="../../assets/moka/title.png"/>
                 <label>其他设备总数及纳入监控数</label>
               </div>
-              <equip-num></equip-num>
+              <equip-num :monitorNum="monitorNum"></equip-num>
             </div>
             <div class="warn-num">
               <div class="common-title">
@@ -317,7 +318,7 @@
                 <label>告警数</label>
               </div>
               <div class="warn-num-view">
-                <warn-num></warn-num>
+                <warn-num :type="type"></warn-num>
               </div>
             </div>
             <div class="use-ratio first-ratio">
@@ -326,7 +327,7 @@
                 <label>磁盘利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="storageUseRate"></use-rate>
               </div>
             </div>
             <div class="use-ratio">
@@ -335,7 +336,7 @@
                 <label>CPU利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="cpuUseRate"></use-rate>
               </div>
             </div>
             <div class="use-ratio">
@@ -344,7 +345,7 @@
                 <label>内存利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="memoryUseRate"></use-rate>
               </div>
             </div>
           </div>
@@ -354,7 +355,7 @@
                 <img src="../../assets/moka/title.png"/>
                 <label>四级设备总数及纳入监控数</label>
               </div>
-              <equip-num></equip-num>
+              <equip-num :monitorNum="monitorNum"></equip-num>
             </div>
             <div class="warn-num">
               <div class="common-title">
@@ -362,7 +363,7 @@
                 <label>告警数</label>
               </div>
               <div class="warn-num-view">
-                <warn-num></warn-num>
+                <warn-num :type="type"></warn-num>
               </div>
             </div>
             <div class="use-ratio first-ratio">
@@ -371,7 +372,7 @@
                 <label>磁盘利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="storageUseRate"></use-rate>
               </div>
             </div>
             <div class="use-ratio">
@@ -380,7 +381,7 @@
                 <label>CPU利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="cpuUseRate"></use-rate>
               </div>
             </div>
             <div class="use-ratio">
@@ -389,7 +390,7 @@
                 <label>内存利用率</label>
               </div>
               <div class="use-ratio-view">
-                <use-rate></use-rate>
+                <use-rate :useRate="memoryUseRate"></use-rate>
               </div>
             </div>
           </div>
@@ -589,6 +590,9 @@
   // 接口
   import { getMonitorCount } from '../../api/moka'
   import { getHostView } from '../../api/moka'
+  import { getUserRateWithType, getMonitorWithType, getSysIssusStatistics, getBaseDeviceData, getSafeStatusData } from '../../api/moka'
+  import { listAlertWithDeviceType } from '../../api/moka'
+  import { getSafeEventData } from '../../api/moka'
 
   export default {
     name: 'moka',
@@ -643,10 +647,30 @@
         //  主机设备cpu、磁盘、内存利用率
         hostDisks: [],
         hostCPU: [],
-        hostMem: []
+        hostMem: [],
+        // 根据设备类型获取告警数量
+        type: 1,
+        month: 0,
+        alertCount: 0,
+        storageUseRate: 0,
+        cpuUseRate: 0,
+        memoryUseRate: 0,
+        webPlatform: {},
+        operationPlatform: {},
+        appDevice: [],
+        baseDevice: [],
+        xTime: [],
+        yValue: [],
+        currentTime: '',
+        min: 0,
+        max: 0
+
       }
     },
     mounted() {
+      setInterval(() => {
+        this.getCurrentTime()
+      }, 1000)
       this.getMonitorNum()
       this.getHostViewNum()
       var self = this
@@ -655,22 +679,64 @@
         this.hostCPU = []
         this.hostMem = []
         self.getHostViewNum()
-      }, 30000)
+      }, 50000)
+      var self = this
+      setInterval(function() {
+        self.getMonitorWithType()
+        self.getSafeStatusData()
+      }, 5000)
     },
     methods: {
+
+      /* 获取当前时间 年月日时分秒*/
+      // getCurrentTime () {
+      //   var now = new Date()
+      //   var year = now.getFullYear() // 得到年份
+      //   var month = now.getMonth()// 得到月份
+      //   var date = now.getDate()// 得到日期
+      //   // var day = now.getDay()// 得到周几
+      //   var hour = now.getHours()// 得到小时
+      //   var minu = now.getMinutes()// 得到分钟
+      //   var sec = now.getSeconds()// 得到秒
+      //   month = month + 1
+      //   if (month < 10) month = '0' + month
+      //   if (date < 10) date = '0' + date
+      //   if (hour < 10) hour = '0' + hour
+      //   if (minu < 10) minu = '0' + minu
+      //   if (sec < 10) sec = '0' + sec
+      //   this.currentTime = year + '-' + month + '-' + date + ' ' + hour + ':' + minu + ':' + sec
+      // },
+
+      getCurrentTime () {
+        var now = new Date()
+        var year = now.getFullYear() // 得到年份
+        var month = now.getMonth()// 得到月份
+        var date = now.getDate()// 得到日期
+        // var day = now.getDay()// 得到周几
+        var hour = now.getHours()// 得到小时
+        var minu = now.getMinutes()// 得到分钟
+        var sec = now.getSeconds()// 得到秒
+        month = month + 1
+        if (month < 10) month = '0' + month
+        if (date < 10) date = '0' + date
+        if (hour < 10) hour = '0' + hour
+        if (minu < 10) minu = '0' + minu
+        if (sec < 10) sec = '0' + sec
+        this.currentTime = year + '-' + month + '-' + date + ' ' + hour + ':' + minu
+      },
+
       getMonitorNum() {
         this.monitorNum = []
         getMonitorCount()
           .then(response => {
             // console.log(111, response)
             var res = response.data
-            this.monitorNum.push(res.monitorCount, res.offlineCount)
+            this.monitorNum.push(res.monitorCount, res.unMonitorCount)
           })
       },
       // getUseRate(){
       //
       // }
-
       getHostViewNum() {
         var self = this
         getHostView()
@@ -684,6 +750,71 @@
             }
           })
       },
+      getUserRateWithType() {
+        getUserRateWithType(this.type)
+          .then(response => {
+            var res = response.data
+            this.storageUseRate = res.storageUseRate
+            this.cpuUseRate = res.cpuUseRate
+            this.memoryUseRate = res.memoryUseRate
+          })
+      },
+      getMonitorWithType() {
+        getMonitorWithType(this.type)
+          .then(response => {
+            var res = response.data
+            this.monitorNum = []
+            this.monitorNum.push(res.monitorCount, res.unMonitorCount)
+          })
+      },
+
+      listAlertWithDeviceType() {
+        listAlertWithDeviceType(this.type)
+          .then(response => {
+            var res = response.data
+            this.month = res.month
+            this.alertCount = res.alertCount
+          })
+      },
+      getSysIssusStatistics() {
+        getSysIssusStatistics().then(response => {
+          var res = response.data
+          this.webPlatform = res.webPlatform
+          this.operationPlatform = res.operationPlatform
+        })
+      },
+      getBaseDeviceData() {
+        this.appDevice = []
+        this.baseDevice = []
+        getBaseDeviceData().then(response => {
+          var res = response.data
+          this.appDevice = res.appDevice
+          this.baseDevice = res.baseDevice
+        })
+      },
+      getSafeStatusData() {
+        getSafeStatusData().then(response => {
+          this.xTime = []
+          this.yValue = []
+          var res = response.data
+          var rate = res.rate
+          this.min = res.min
+          this.max = res.max
+          for (var index in rate) {
+            this.xTime.push(rate[index].time)
+            this.yValue.push(rate[index].velocity)
+          }
+        })
+      },
+
+      getSafeEventData() {
+        getSafeEventData().then(response => {
+          var res = response.data
+          this.attack = res.attack
+          this.leak = res.leak
+          this.violation = res.violation
+        })
+      },
 
       // 切换视图
       toIndex1() {
@@ -691,6 +822,11 @@
         this.index1 = true
         this.index2 = false
         this.index3 = false
+        var self = this
+        setInterval(() => {
+          self.getSysIssusStatistics()
+          self.getBaseDeviceData()
+        }, 5000)
       },
       toIndex2() {
         this.indexStatus = 2
@@ -714,6 +850,10 @@
         this.sel4 = false
         this.sel5 = false
         this.infraStatus = 1
+        this.type = 1
+        setInterval(() => {
+          this.getMonitorWithType()
+        }, 5000)
       },
       storageClick() {
         this.sel2 = true
@@ -722,6 +862,11 @@
         this.sel4 = false
         this.sel5 = false
         this.infraStatus = 2
+        this.type = 2
+        setInterval(() => {
+          this.getUserRateWithType()
+          this.getMonitorWithType()
+        }, 5000)
       },
       networkClick() {
         this.sel3 = true
@@ -730,6 +875,12 @@
         this.sel4 = false
         this.sel5 = false
         this.infraStatus = 3
+        this.type = 3
+        var self = this
+        setInterval(() => {
+          self.getUserRateWithType()
+          self.getMonitorWithType()
+        }, 5000)
       },
       otherClick() {
         this.sel4 = true
@@ -738,6 +889,12 @@
         this.sel3 = false
         this.sel5 = false
         this.infraStatus = 4
+        this.type = 5
+        var self = this
+        setInterval(() => {
+          self.getUserRateWithType()
+          self.getMonitorWithType()
+        }, 5000)
       },
       levelFourClick() {
         this.sel5 = true
@@ -746,6 +903,12 @@
         this.sel4 = false
         this.sel3 = false
         this.infraStatus = 5
+        this.type = 4
+        var self = this
+        setInterval(() => {
+          self.getUserRateWithType()
+          self.getMonitorWithType()
+        }, 5000)
       },
       // 切换  质控态势 各应用系统效能
       outsideNetClick() {

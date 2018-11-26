@@ -6,7 +6,8 @@
   import echarts from 'echarts'
 
   require('echarts/theme/macarons') // echarts theme
-  import {debounce} from '@/utils'
+  import { debounce } from '@/utils'
+  import { getAppSituation } from '@/api/moka'
 
   export default {
     props: {
@@ -21,7 +22,7 @@
       height: {
         type: String,
         default: '100%'
-      },
+      }
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -38,6 +39,10 @@
     data() {
       return {
         chart: null,
+        normal: [],
+        malfunction: [],
+        deterioration: [],
+        monitor: []
 
       }
     },
@@ -51,9 +56,15 @@
       //   this.getData()
       //   this.initChart()
       // }
+      normal: function() {
+        this.initChart()
+      }
     },
     mounted() {
-      this.initChart()
+      this.getAppSituation()
+      setInterval(() => {
+        this.getAppSituation()
+      }, 5000)
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -70,6 +81,35 @@
       this.chart = null
     },
     methods: {
+      getAppSituation() {
+        getAppSituation().then(response => {
+          var res = response.data
+          this.normal = []
+          this.malfunction = []
+          this.deterioration = []
+          this.monitor = []
+          this.normal.push(res.extranet.normal)
+          this.normal.push(res.internet.normal)
+          this.normal.push(res.datanet.normal)
+          this.normal.push(res.videonet.normal)
+          this.normal.push(res.secretnet.normal)
+          this.malfunction.push(res.extranet.malfunction)
+          this.malfunction.push(res.internet.malfunction)
+          this.malfunction.push(res.datanet.malfunction)
+          this.malfunction.push(res.videonet.malfunction)
+          this.malfunction.push(res.secretnet.malfunction)
+          this.deterioration.push(res.extranet.deterioration)
+          this.deterioration.push(res.internet.deterioration)
+          this.deterioration.push(res.datanet.deterioration)
+          this.deterioration.push(res.videonet.deterioration)
+          this.deterioration.push(res.secretnet.deterioration)
+          this.monitor.push(res.extranet.monitor)
+          this.monitor.push(res.internet.monitor)
+          this.monitor.push(res.datanet.monitor)
+          this.monitor.push(res.videonet.monitor)
+          this.monitor.push(res.secretnet.monitor)
+        })
+      },
       initChart() {
         this.chart = echarts.init(this.$el, 'macarons')
 
@@ -77,18 +117,18 @@
           '#57617B',
           '#57617B',
           '#57617B',
-          'black'];
+          'black']
 
         this.chart.setOption({
           color: colors,
           // backgroundColor: '#313642',
           title: {
-            text: "应用状态",
+            text: '应用状态',
             textStyle: {
               fontWeight: 'normal',
               fontSize: 16,
               color: '#fff'
-            },
+            }
           },
           tooltip: {
             trigger: 'axis',
@@ -138,7 +178,7 @@
             start: 0,
             end: 80,
             bottom: '8%'
-          }, ],
+          }],
 
           xAxis: [{
             type: 'category',
@@ -153,8 +193,6 @@
           yAxis: [{
             type: 'value',
             name: '正常状态数量',
-            min: 0,
-            max: 1000,
             position: 'right',
             axisLine: {
               lineStyle: {
@@ -168,12 +206,10 @@
               lineStyle: {
                 color: '#32bef2'
               }
-            },
+            }
           }, {
             type: 'value',
             name: '故障状态数量',
-            min: 0,
-            max: 50,
             position: 'right',
             offset: 80,
             axisLine: {
@@ -192,8 +228,6 @@
           }, {
             type: 'value',
             name: '性能劣化数量',
-            min: 0,
-            max: 100,
             position: 'right',
             offset: 160,
             axisLine: {
@@ -212,8 +246,6 @@
           }, {
             type: 'value',
             name: '已纳入监控数量',
-            min: 0,
-            max: 1000,
             position: 'left',
             axisLine: {
               lineStyle: {
@@ -231,145 +263,145 @@
           }],
           series: [
             {
-            name: '正常状态',
-            type: 'line',
-            smooth: true,
-            symbol: 'circle',
-            symbolSize: 5,
-            showSymbol: false,
-            lineStyle: {
-              normal: {
-                width: 1
-              }
-            },
-            areaStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: 'rgba(219, 50, 51, 0.3)'
-                }, {
-                  offset: 0.8,
-                  color: 'rgba(219, 50, 51, 0)'
-                }], false),
-                shadowColor: 'rgba(0, 0, 0, 0.1)',
-                shadowBlur: 10
-              }
-            },
-            itemStyle: {
-              normal: {
+              name: '正常状态',
+              type: 'line',
+              smooth: true,
+              symbol: 'circle',
+              symbolSize: 5,
+              showSymbol: false,
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              },
+              areaStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgba(219, 50, 51, 0.3)'
+                  }, {
+                    offset: 0.8,
+                    color: 'rgba(219, 50, 51, 0)'
+                  }], false),
+                  shadowColor: 'rgba(0, 0, 0, 0.1)',
+                  shadowBlur: 10
+                }
+              },
+              itemStyle: {
+                normal: {
 
-                color: 'rgb(219,50,51)',
-                borderColor: 'rgba(219,50,51,0.2)',
-                borderWidth: 12
-              }
-            },
-            data: [200, 259, 170, 182, 256, 507, 456, 220, 256, 300, 244, 263]
-          }, {
-            name: '故障状态',
-            type: 'line',
-            smooth: true,
-            symbol: 'circle',
-            symbolSize: 5,
-            showSymbol: false,
-            lineStyle: {
-              normal: {
-                width: 1
-              }
-            },
-            areaStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: 'rgba(0, 136, 212, 0.3)'
-                }, {
-                  offset: 0.8,
-                  color: 'rgba(0, 136, 212, 0)'
-                }], false),
-                shadowColor: 'rgba(0, 0, 0, 0.1)',
-                shadowBlur: 10
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: 'rgb(0,136,212)',
-                borderColor: 'rgba(0,136,212,0.2)',
-                borderWidth: 12
+                  color: 'rgb(219,50,51)',
+                  borderColor: 'rgba(219,50,51,0.2)',
+                  borderWidth: 12
+                }
+              },
+              data: this.normal
+            }, {
+              name: '故障状态',
+              type: 'line',
+              smooth: true,
+              symbol: 'circle',
+              symbolSize: 5,
+              showSymbol: false,
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              },
+              areaStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgba(0, 136, 212, 0.3)'
+                  }, {
+                    offset: 0.8,
+                    color: 'rgba(0, 136, 212, 0)'
+                  }], false),
+                  shadowColor: 'rgba(0, 0, 0, 0.1)',
+                  shadowBlur: 10
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: 'rgb(0,136,212)',
+                  borderColor: 'rgba(0,136,212,0.2)',
+                  borderWidth: 12
 
-              }
-            },
-            yAxisIndex: 1,
-            data: [6, 9, 1, 4, 7, 7, 6, 2, 7, 8, 0, 3]
-          }, {
-            name: '劣化状态',
-            type: 'line',
-            smooth: true,
-            symbol: 'circle',
-            symbolSize: 5,
-            showSymbol: false,
-            lineStyle: {
-              normal: {
-                width: 1
-              }
-            },
-            areaStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: 'rgba(137, 189, 27, 0.3)'
-                }, {
-                  offset: 0.8,
-                  color: 'rgba(137, 189, 27, 0)'
-                }], false),
-                shadowColor: 'rgba(0, 0, 0, 0.1)',
-                shadowBlur: 10
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: 'rgb(137,189,27)',
-                borderColor: 'rgba(137,189,2,0.27)',
-                borderWidth: 12
+                }
+              },
+              yAxisIndex: 1,
+              data: this.malfunction
+            }, {
+              name: '劣化状态',
+              type: 'line',
+              smooth: true,
+              symbol: 'circle',
+              symbolSize: 5,
+              showSymbol: false,
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              },
+              areaStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgba(137, 189, 27, 0.3)'
+                  }, {
+                    offset: 0.8,
+                    color: 'rgba(137, 189, 27, 0)'
+                  }], false),
+                  shadowColor: 'rgba(0, 0, 0, 0.1)',
+                  shadowBlur: 10
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: 'rgb(137,189,27)',
+                  borderColor: 'rgba(137,189,2,0.27)',
+                  borderWidth: 12
 
-              }
-            },
-            yAxisIndex: 2,
-            data: [20, 22, 33, 45, 63, 102, 203, 34, 30, 65, 120, 62]
-          }, {
-            name: '已纳入监控',
-            type: 'line',
-            smooth: true,
-            symbol: 'circle',
-            symbolSize: 5,
-            showSymbol: false,
-            lineStyle: {
-              normal: {
-                width: 1
-              }
-            },
-            areaStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: 'rgba(50, 172, 169, 0.3)'
-                }, {
-                  offset: 0.8,
-                  color: 'rgba(50, 172, 169, 0)'
-                }], false),
-                shadowColor: 'rgba(50, 172, 169, 0.1)',
-                shadowBlur: 10
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: 'rgb(50, 172, 169)',
-                borderColor: 'rgba(50, 172, 169,0.27)',
-                borderWidth: 12
+                }
+              },
+              yAxisIndex: 2,
+              data: this.deterioration
+            }, {
+              name: '已纳入监控',
+              type: 'line',
+              smooth: true,
+              symbol: 'circle',
+              symbolSize: 5,
+              showSymbol: false,
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              },
+              areaStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgba(50, 172, 169, 0.3)'
+                  }, {
+                    offset: 0.8,
+                    color: 'rgba(50, 172, 169, 0)'
+                  }], false),
+                  shadowColor: 'rgba(50, 172, 169, 0.1)',
+                  shadowBlur: 10
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: 'rgb(50, 172, 169)',
+                  borderColor: 'rgba(50, 172, 169,0.27)',
+                  borderWidth: 12
 
-              }
-            },
-            yAxisIndex: 3,
-            data: [200, 202, 33, 405, 603, 102, 203, 23.4, 230, 160, 120, 602]
-          }]
+                }
+              },
+              yAxisIndex: 3,
+              data: this.monitor
+            }]
         })
       }
     }

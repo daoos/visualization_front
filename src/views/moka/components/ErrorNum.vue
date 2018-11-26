@@ -6,7 +6,8 @@
   import echarts from 'echarts'
 
   require('echarts/theme/macarons') // echarts theme
-  import {debounce} from '@/utils'
+  import { debounce } from '@/utils'
+  import { getDeviceAlertOverView } from '@/api/moka'
 
   export default {
     props: {
@@ -21,7 +22,7 @@
       height: {
         type: String,
         default: '100%'
-      },
+      }
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -38,7 +39,7 @@
     data() {
       return {
         chart: null,
-
+        data: 0
       }
     },
     computed: {},
@@ -51,9 +52,15 @@
       //   this.getData()
       //   this.initChart()
       // }
+      data: function() {
+        this.initChart()
+      }
     },
     mounted() {
-      this.initChart()
+      this.getDeviceAlertOverView()
+      setInterval(() => {
+        this.getDeviceAlertOverView()
+      }, 5000)
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -70,8 +77,13 @@
       this.chart = null
     },
     methods: {
+      getDeviceAlertOverView() {
+        getDeviceAlertOverView().then(response => {
+          this.data = response.data
+        })
+      },
       initChart() {
-        var data = 20;
+        var data = this.data
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
           grid: [{
@@ -84,7 +96,7 @@
             text: data + '%',
             x: '50%',
             y: parseInt('100%') * 0.44 + '%',
-            textAlign: "center",
+            textAlign: 'center',
             textStyle: {
               fontWeight: 'normal',
               color: '#fff',
@@ -98,7 +110,7 @@
             textStyle: {
               color: '#fff'
             },
-            data: ["设备报警数占比"]
+            data: ['设备报警数占比']
           },
           tooltip: {
             show: false
@@ -359,7 +371,7 @@
                 value: 50
               }]
             },
-            //内圈
+            // 内圈
             {
               name: '遮罩',
               type: 'pie',
@@ -411,7 +423,7 @@
               radius: ['45%', '60%'],
               hoverAnimation: false,
               z: 12,
-              color: ["#ff0200", "transparent"],
+              color: ['#ff0200', 'transparent'],
               itemStyle: {
                 normal: {
                   show: false

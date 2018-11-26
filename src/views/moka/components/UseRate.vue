@@ -6,7 +6,7 @@
   import echarts from 'echarts'
 
   require('echarts/theme/macarons') // echarts theme
-  import {debounce} from '@/utils'
+  import { debounce } from '@/utils'
 
   export default {
     props: {
@@ -22,6 +22,10 @@
         type: String,
         default: '100%'
       },
+      useRate: {
+        type: Number
+      }
+
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -38,12 +42,15 @@
     data() {
       return {
         chart: null,
-        dataList: 40,
+        dataList: 40
       }
     },
     computed: {},
     watch: {
-      dataList: function () {
+      useRate: function() {
+        this.dataList = this.useRate
+      },
+      dataList: function() {
         this.initChart()
       }
       // ovData: function() {
@@ -56,12 +63,6 @@
       // }
     },
     mounted() {
-      var self = this;
-      setInterval(function() {
-        self.dataList = (Math.random() * 100).toFixed(2) - 0;
-        // self.initChart()
-      }, 2000)
-
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -82,7 +83,7 @@
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
           tooltip: {
-            formatter: "{b} : {c}%"
+            formatter: '{b} : {c}%'
           },
           series: [{
             name: '黑色外圈细',
@@ -98,22 +99,22 @@
                   [1, '#000']
                 ],
                 width: 4,
-                shadowColor: '#0d4b81', //默认透明
+                shadowColor: '#0d4b81', // 默认透明
                 shadowOffsetX: 0,
                 shadowOffsetY: -3,
                 shadowBlur: 20,
-                opacity: 1,
+                opacity: 1
               }
 
             },
-            splitLine: { //分隔线样式
-              show: false,
+            splitLine: { // 分隔线样式
+              show: false
             },
-            axisLabel: { //刻度标签
-              show: false,
+            axisLabel: { // 刻度标签
+              show: false
             },
-            axisTick: { //刻度样式
-              show: false,
+            axisTick: { // 刻度样式
+              show: false
             },
             data: [{
               value: '',
@@ -132,18 +133,18 @@
                   [1, '#00fffc']
                 ],
                 width: 2,
-                opacity: 1,
+                opacity: 1
               }
 
             },
-            splitLine: { //分隔线样式
-              show: false,
+            splitLine: { // 分隔线样式
+              show: false
             },
-            axisLabel: { //刻度标签
-              show: false,
+            axisLabel: { // 刻度标签
+              show: false
             },
-            axisTick: { //刻度样式
-              show: false,
+            axisTick: { // 刻度样式
+              show: false
             },
             data: [{
               value: '',
@@ -163,19 +164,18 @@
                 ],
                 width: 2,
 
-
-                opacity: 1,
+                opacity: 1
               }
 
             },
-            splitLine: { //分隔线样式
-              show: false,
+            splitLine: { // 分隔线样式
+              show: false
             },
-            axisLabel: { //刻度标签
-              show: false,
+            axisLabel: { // 刻度标签
+              show: false
             },
-            axisTick: { //刻度样式
-              show: false,
+            axisTick: { // 刻度样式
+              show: false
             },
             data: [{
               value: '',
@@ -194,18 +194,18 @@
                   [1, '#00fffc']
                 ],
                 width: 2,
-                opacity: 1,
+                opacity: 1
               }
 
             },
-            splitLine: { //分隔线样式
-              show: false,
+            splitLine: { // 分隔线样式
+              show: false
             },
-            axisLabel: { //刻度标签
-              show: false,
+            axisLabel: { // 刻度标签
+              show: false
             },
-            axisTick: { //刻度样式
-              show: false,
+            axisTick: { // 刻度样式
+              show: false
             },
             data: [{
               value: '',
@@ -225,19 +225,18 @@
                 ],
                 width: 2,
 
-
-                opacity: 1,
+                opacity: 1
               }
 
             },
-            splitLine: { //分隔线样式
-              show: false,
+            splitLine: { // 分隔线样式
+              show: false
             },
-            axisLabel: { //刻度标签
-              show: false,
+            axisLabel: { // 刻度标签
+              show: false
             },
-            axisTick: { //刻度样式
-              show: false,
+            axisTick: { // 刻度样式
+              show: false
             },
             data: [{
               value: '',
@@ -256,22 +255,22 @@
                   [1, '#31ada9']
                 ],
                 width: '100%',
-                shadowColor: '#31ada9', //默认透明
+                shadowColor: '#31ada9', // 默认透明
                 shadowOffsetX: 0,
                 shadowOffsetY: 0,
                 shadowBlur: 40,
-                opacity: 1,
+                opacity: 1
               }
 
             },
-            splitLine: { //分隔线样式
-              show: false,
+            splitLine: { // 分隔线样式
+              show: false
             },
-            axisLabel: { //刻度标签
-              show: false,
+            axisLabel: { // 刻度标签
+              show: false
             },
-            axisTick: { //刻度样式
-              show: false,
+            axisTick: { // 刻度样式
+              show: false
             },
             data: [{
               value: '',
@@ -291,46 +290,46 @@
                   [1, '#000']
                 ],
                 width: '100%',
-                shadowColor: '#31ada9', //默认透明
+                shadowColor: '#31ada9', // 默认透明
                 shadowOffsetX: 0,
                 shadowOffsetY: 0,
                 shadowBlur: 20,
-                opacity: 1,
+                opacity: 1
               }
 
             },
-            splitLine: { //分隔线样式
-              show: false,
+            splitLine: { // 分隔线样式
+              show: false
             },
-            axisLabel: { //刻度标签
-              show: false,
+            axisLabel: { // 刻度标签
+              show: false
             },
-            axisTick: { //刻度样式
-              show: false,
+            axisTick: { // 刻度样式
+              show: false
             },
-            pointer: { //仪表盘指针。
+            pointer: { // 仪表盘指针。
               length: '1%',
-              width: 0,
+              width: 0
             },
             detail: {
               offsetCenter: [0, -10],
               formatter: function(value) {
-                return value + '%';
+                return value + '%'
               },
               textStyle: {
                 color: '#FFF',
                 fontSize: 12
-              },
+              }
             },
             data: [{
               value: this.dataList,
-              name: '',
+              name: ''
               // textStyle: {
               //   color: '#fff',
               //   fontSize:12
               // }
-            }],
-          },
+            }]
+          }
 
           ]
         })

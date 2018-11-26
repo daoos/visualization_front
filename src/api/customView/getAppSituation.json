@@ -1,0 +1,36 @@
+{
+  "status":200,
+  "msg":"",
+  "data":{
+    "extranet":{
+      "normal":66,
+      "malfunction":5,
+      "deterioration":80,
+      "monitor":30
+    },
+    "internet":{
+      "normal":66,
+      "malfunction":5,
+      "deterioration":80,
+      "monitor":30
+    },
+    "datanet":{
+      "normal":66,
+      "malfunction":5,
+      "deterioration":80,
+      "monitor":30
+    },
+    "videonet":{
+      "normal":66,
+      "malfunction":5,
+      "deterioration":80,
+      "monitor":30
+    },
+    "secretnet":{
+      "normal":66,
+      "malfunction":5,
+      "deterioration":80,
+      "monitor":30
+    }
+  }
+}

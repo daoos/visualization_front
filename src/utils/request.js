@@ -6,7 +6,7 @@ import { Message } from 'element-ui'
 // create an axios instance
 // const a = process.env.BASE_API
 const service = axios.create({
-  baseURL: 'http://139.4.48.244:9090', // api的base_url
+  baseURL: 'http://localhost:9090', // api的base_url
   timeout: 5000 // request timeout
 })
 
@@ -16,13 +16,13 @@ service.interceptors.response.use(
     return response.data
   },
   error => {
-    // console.log('aaaaaa', a)
-    console.log('err' + error)// for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    // // console.log('aaaaaa', a)
+    // console.log('err' + error)// for debug
+    // Message({
+    //   message: error.message,
+    //   type: 'error',
+    //   duration: 5 * 1000
+    // })
     return Promise.reject(error)
   })
 

@@ -6,7 +6,7 @@
   import echarts from 'echarts'
   require('echarts/theme/macarons') // echarts theme
   import { debounce } from '@/utils'
-
+  import { getSafeEventData } from '@/api/moka'
   export default {
     props: {
       className: {
@@ -20,7 +20,7 @@
       height: {
         type: String,
         default: '100%'
-      },
+      }
       // deviceName: {
       //   type: Array,
       //   default: function() {
@@ -38,9 +38,9 @@
       return {
         chart: null,
         option: undefined,
-        dataBJ : [
-          [134, 96, 165],
-        ]
+        attack: 0,
+        leak: 0,
+        violation: 0
       }
     },
     computed: {
@@ -54,11 +54,17 @@
       //   this.getData()
       //   this.initChart()
       // }
+      attack: function() {
+        this.initOption()
+      }
     },
     mounted() {
-      this.initOption();
-      var self = this;
-      setTimeout(self.animate, 500);
+      this.getSafeEventData()
+      setInterval(() => {
+        this.getSafeEventData()
+      }, 5000)
+      var self = this
+      setTimeout(self.animate, 500)
       // console.log(this)
       // this.getData()
       // this.initChart()
@@ -84,41 +90,48 @@
       this.chart = null
     },
     methods: {
+      getSafeEventData() {
+        getSafeEventData().then(response => {
+          var res = response.data
+          this.attack = res.attack
+          this.leak = res.leak
+          this.violation = res.violation
+        })
+      },
       initOption() {
-
-        var arr = [];
-        var r = 100;
+        var arr = []
+        var r = 100
         for (var i = 0; i < 1000; i++) {
-          var rad = 2 * Math.PI / 1000 * i;
-          var x = Math.cos(rad) * r + 500;
-          var y = Math.sin(rad) * r + 500;
-          arr.push([x, y]);
+          var rad = 2 * Math.PI / 1000 * i
+          var x = Math.cos(rad) * r + 500
+          var y = Math.sin(rad) * r + 500
+          arr.push([x, y])
         }
-        var arr2 = [];
+        var arr2 = []
         for (var i = 500; i < 1000; i++) {
-          var rad = 2 * Math.PI / 1000 * i;
-          var x = Math.cos(rad) * r + 500;
-          var y = Math.sin(rad) * r + 500;
-          arr2.push([x, y]);
+          var rad = 2 * Math.PI / 1000 * i
+          var x = Math.cos(rad) * r + 500
+          var y = Math.sin(rad) * r + 500
+          arr2.push([x, y])
         }
         for (var i = 0; i < 500; i++) {
-          var rad = 2 * Math.PI / 1000 * i;
-          var x = Math.cos(rad) * r + 500;
-          var y = Math.sin(rad) * r + 500;
-          arr2.push([x, y]);
+          var rad = 2 * Math.PI / 1000 * i
+          var x = Math.cos(rad) * r + 500
+          var y = Math.sin(rad) * r + 500
+          arr2.push([x, y])
         }
         var indicatorData = [{
-          name: '安全攻击\n' + 134 ,
+          name: '安全攻击\n' + this.attack
           // max: 300
         }, {
-          name: '安全漏洞\n' + 96,
+          name: '安全漏洞\n' + this.leak
           // max: 300
         }, {
-          name: '违规事件\n'+ 165,
+          name: '违规事件\n' + this.violation
           // max: 300
-        }];
-        var rotate = 45;
-        var width = 4;
+        }]
+        var rotate = 45
+        var width = 4
         this.option = {
           radar: {
             center: ['50%', '50%'],
@@ -135,8 +148,8 @@
               textStyle: {
                 color: '#fff',
                 fontSize: 12,
-                fontFamily: "Microsoft YaHei"
-              },
+                fontFamily: 'Microsoft YaHei'
+              }
               // padding: [8, 8, 8, 8]
             },
             splitLine: {
@@ -167,7 +180,7 @@
             axisLabel: {
               show: true,
               formatter: function(value, index) {
-                return value;
+                return value
               }
             },
             zlevel: 101
@@ -191,18 +204,18 @@
                   shadowOffsetX: 0,
                   shadowOffsetY: -12,
                   shadowBlur: 120,
-                  opacity: 1,
+                  opacity: 1
                 }
 
               },
               splitLine: {
-                show: false,
+                show: false
               },
               axisLabel: {
-                show: false,
+                show: false
               },
               axisTick: {
-                show: false,
+                show: false
               },
               detail: {
                 show: false
@@ -226,17 +239,17 @@
                   shadowOffsetX: 0,
                   shadowOffsetY: -12,
                   shadowBlur: 120,
-                  opacity: 1,
+                  opacity: 1
                 }
               },
               splitLine: {
-                show: false,
+                show: false
               },
               axisLabel: {
-                show: false,
+                show: false
               },
               axisTick: {
-                show: false,
+                show: false
               },
               detail: {
                 show: false
@@ -260,17 +273,17 @@
                   shadowOffsetX: 0,
                   shadowOffsetY: -12,
                   shadowBlur: 120,
-                  opacity: 1,
+                  opacity: 1
                 }
               },
               splitLine: {
-                show: false,
+                show: false
               },
               axisLabel: {
-                show: false,
+                show: false
               },
               axisTick: {
-                show: false,
+                show: false
               },
               detail: {
                 show: false
@@ -294,17 +307,17 @@
                   shadowOffsetX: 0,
                   shadowOffsetY: -12,
                   shadowBlur: 120,
-                  opacity: 1,
+                  opacity: 1
                 }
               },
               splitLine: {
-                show: false,
+                show: false
               },
               axisLabel: {
-                show: false,
+                show: false
               },
               axisTick: {
-                show: false,
+                show: false
               },
               detail: {
                 show: false
@@ -324,19 +337,18 @@
                   ],
                   width: width,
 
-
-                  opacity: 1,
+                  opacity: 1
                 }
 
               },
               splitLine: {
-                show: false,
+                show: false
               },
               axisLabel: {
-                show: false,
+                show: false
               },
               axisTick: {
-                show: false,
+                show: false
               },
               detail: {
                 show: false
@@ -354,17 +366,17 @@
                     [1, '#1e5a67']
                   ],
                   width: width,
-                  opacity: 1,
+                  opacity: 1
                 }
               },
               splitLine: {
-                show: false,
+                show: false
               },
               axisLabel: {
-                show: false,
+                show: false
               },
               axisTick: {
-                show: false,
+                show: false
               },
               detail: {
                 show: false
@@ -382,18 +394,18 @@
                     [1, '#1e5a67']
                   ],
                   width: width,
-                  opacity: 1,
+                  opacity: 1
                 }
 
               },
               splitLine: {
-                show: false,
+                show: false
               },
               axisLabel: {
-                show: false,
+                show: false
               },
               axisTick: {
-                show: false,
+                show: false
               },
               detail: {
                 show: false
@@ -412,17 +424,17 @@
                     [1, '#1e5a67']
                   ],
                   width: width,
-                  opacity: 1,
+                  opacity: 1
                 }
               },
               splitLine: {
-                show: false,
+                show: false
               },
               axisLabel: {
-                show: false,
+                show: false
               },
               axisTick: {
-                show: false,
+                show: false
               },
               detail: {
                 show: false
@@ -456,9 +468,9 @@
               lineStyle: {
                 normal: {
                   type: 'dotted',
-                  color: "#355862",
+                  color: '#355862',
                   width: 2,
-                  opacity: 1,
+                  opacity: 1
 
                 }
               },
@@ -482,7 +494,7 @@
                 }
               }
             },
-          /*  {
+            /*  {
               name: '雷达线2',
               type: 'radar',
               silent: true,
@@ -671,7 +683,7 @@
               itemStyle: {
                 normal: {
                   borderColor: '#32565f',
-                  borderWidth: 4,
+                  borderWidth: 4
                 }
               },
               areaStyle: {
@@ -689,8 +701,8 @@
               zlevel: 1000
             },
             {
-              name: "仪盘表",
-              type: "gauge",
+              name: '仪盘表',
+              type: 'gauge',
               // min: 0,
               // max: 360,
               startAngle: 0,
@@ -702,19 +714,19 @@
               axisLine: {
                 lineStyle: {
                   color: [
-                    [0.1, "#d70029"],
-                    [1, "#0d2534"]
+                    [0.1, '#d70029'],
+                    [1, '#0d2534']
                   ],
                   // width: 90,
                   opacity: 0
-                },
+                }
               },
               axisTick: {
                 lineStyle: {
                   // color: '#4dfdfe',
                   color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [{
                     color: '#4dfdfe',
-                    offset: 0.9,
+                    offset: 0.9
                   }, {
                     color: '#143a49',
                     offset: 0.2
@@ -738,16 +750,16 @@
               axisLabel: {
                 distance: 10,
                 textStyle: {
-                  color: "#fff"
+                  color: '#fff'
                 },
-                show: false,
+                show: false
               },
               splitLine: {
-                "show": false
+                'show': false
               },
               itemStyle: {
                 normal: {
-                  color: "#494f50"
+                  color: '#494f50'
                 }
               },
               detail: {
@@ -756,8 +768,8 @@
               }
             },
             {
-              name: "仪盘表",
-              type: "gauge",
+              name: '仪盘表',
+              type: 'gauge',
               // min: 0,
               // max: 360,
               startAngle: 180,
@@ -769,19 +781,19 @@
               axisLine: {
                 lineStyle: {
                   color: [
-                    [0.1, "#d70029"],
-                    [1, "#0d2534"]
+                    [0.1, '#d70029'],
+                    [1, '#0d2534']
                   ],
                   // width: 90,
                   opacity: 0
-                },
+                }
               },
               axisTick: {
                 lineStyle: {
                   // color: '#4dfdfe',
                   color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [{
                     color: '#4dfdfe',
-                    offset: 0.9,
+                    offset: 0.9
                   }, {
                     color: '#143a49',
                     offset: 0.2
@@ -805,16 +817,16 @@
               axisLabel: {
                 distance: 10,
                 textStyle: {
-                  color: "#fff"
+                  color: '#fff'
                 },
-                show: false,
+                show: false
               },
               splitLine: {
-                "show": false
+                'show': false
               },
               itemStyle: {
                 normal: {
-                  color: "#494f50"
+                  color: '#494f50'
                 }
               },
               detail: {
@@ -823,19 +835,19 @@
             }
 
           ]
-        };
+        }
         this.initChart(this.option)
       },
-      animate () {
-        var series1 = this.option.series[this.option.series.length - 2];
+      animate() {
+        var series1 = this.option.series[this.option.series.length - 2]
         // series1.startAngle += 1;
-        series1.startAngle = Date.now() * 0.01;
-        series1.endAngle = series1.startAngle + 15;
+        series1.startAngle = Date.now() * 0.01
+        series1.endAngle = series1.startAngle + 15
 
-        var series2 = this.option.series[this.option.series.length - 1];
+        var series2 = this.option.series[this.option.series.length - 1]
         // series2.startAngle += 1;
-        series2.startAngle = Date.now() * 0.01 + 180;
-        series2.endAngle = series2.startAngle + 15;
+        series2.startAngle = Date.now() * 0.01 + 180
+        series2.endAngle = series2.startAngle + 15
         this.initChart(this.option)
         requestAnimationFrame(this.animate)
       },
